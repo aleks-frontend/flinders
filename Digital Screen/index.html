@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <style>
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/Akzidenz/stylesheet.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/Amsi/stylesheet.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/Akzidenz%20Grotesk/stylesheet-cond.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/TheSans/stylesheet.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/din-pro/stylesheet.css");
+
+      /* inputs order
+      {{show-crop}}
+      {{FLN_theme--ds}}
+      {{FLN_layout--ds}}
+      {{FLN_logo-toggle--ds}}
+      {{FLN_background--ds}}
+      {{grad-colour}}
+      {{top-grad-height}}
+      {{left-grad-width}}
+      {{bottom-grad-height}}
+      {{FLN_content-alignment--ds}}
+      {{FLN_headline--ds}}
+      {{FLN_headline-size--ds}}
+      {{FLN_subheadline--ds}}
+      {{FLN_copy--ds}}
+      {{FLN_partner-logo--ds}}
+      {{FLN_url--ds}}
+      */
+
+      {{{account.snippets.fonts}}}
+
+      :root {
+        --white: #fff;
+        --black: #000;
+        --yellow: #ffd300;
+        --primary-gold: {{account.colors.primary-gold}};
+        --process-black: {{account.colors.process-black}};
+        --50-black: {{account.colors.50-black}};
+      }
+
+      html {
+        font-family: 'Akzidenz Grotesk BE Cn';
+        font-size: 11pt;
+        color: #000;
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .fit {
+        display: flex;
+      }
+
+      .layout--1080x1920 .fit {
+        flex-direction: column;
+      }
+
+      .section {   
+        display: flex;     
+        flex-direction: column;
+        align-items: center;
+        flex: 1;    
+        padding: 46pt 762pt 54pt 48pt;
+        z-index: 1;
+      }
+
+      .theme--full .section {
+        padding: 57pt 46pt 54pt 59pt;
+      }
+
+      .layout--1920x1080.theme--full .section {
+        padding: 57pt 46pt 57pt 59pt;
+      }
+
+      .layout--1080x1920.theme--half .section {
+        flex-direction: column;
+        padding: 82pt 76pt 51pt 76pt;
+        max-height: 790pt;
+      }
+
+      .alignContent--left .section {
+        align-items: flex-start;
+      }
+
+      .layout--1080x1920.theme--full .section {
+        padding: 105pt 76pt 39pt 76pt;
+        max-height: 1420pt;
+      }
+
+      .logo {
+        flex-shrink: 0;
+        margin-bottom: 35pt;
+        width: 100%;
+        height: 95pt;
+        object-fit: contain;
+      }
+
+      .logo--white,
+      .logo--black {
+        display: none;
+      }
+
+      .layout--1920x1080.theme--half .logo--black,
+      .layout--1920x1080.theme--full .logo--white,
+      .layout--1080x1920.theme--half .logo--black,
+      .layout--1080x1920.theme--full .logo--white {
+        display: block;
+      }
+
+      .logo--hide.layout--1920x1080.theme--half .logo--black,
+      .logo--hide.layout--1920x1080.theme--full .logo--white,
+      .logo--hide.layout--1080x1920.theme--half .logo--black,
+      .logo--hide.layout--1080x1920.theme--full .logo--white  {
+        display: none;
+      }
+
+      .logo--left .logo
+
+      {
+        align-self: flex-start;
+      }
+
+      .logo--centre .logo  {
+        align-self: center;
+      }
+
+      .theme--full .logo {
+        width: 335pt;
+        height: 122pt;
+        margin-bottom: 38pt;
+      }
+
+      .layout--1080x1920 .logo {
+        width: 335pt;
+        height: 126pt;
+        margin-bottom: 29pt;
+      }
+
+      .layout--1080x1920.theme--full .logo {
+        margin-bottom: 36pt;
+      }
+
+      .layout--1920x1080.theme--half .logo {
+        width: 253pt;
+      }
+
+      .heading {
+        margin-bottom: 18pt;      
+        font-size: 56.4pt;
+      }
+
+      .theme--full .heading {
+        margin-bottom: 24pt;
+      }
+
+      .layout--1080x1920 .heading {
+        margin-bottom: 20pt;
+      }
+
+      .layout--1080x1920.theme--full .heading {
+        margin-bottom: 13pt;
+      }
+
+      .heading h1 {
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .alignContent--left .heading h1 {
+        text-align: left;
+      }
+
+      .theme--full .heading {
+        color: var(--white);
+        font-size: 76.4pt;
+      }
+
+      .layout--1080x1920 .heading  {
+        font-size: 85pt;
+      }
+
+      .layout--1080x1920.theme--full .heading {
+        font-size: 76pt;
+      }
+
+      .heading h1 {
+        font-size: {{{FLN_headline-size--ds}}}%;
+        line-height: 1em;
+      }
+
+      .divider {
+        width: 100%;
+        border-top: 4pt solid var(--primary-gold);
+        display: none;
+      }
+
+      .theme--full .divider--primary {
+        display: inline-block;
+      }
+
+      .layout--1080x1920.theme--full .divider--primary {
+        display: none;
+      }
+
+      .layout--1080x1920.theme--full .divider--secondary {
+        display: inline-block;
+      }
+
+      .layout--1080x1920.theme--full .divider--secondary.u-hide {
+        display: none;
+      }
+
+      .content__wrapper { flex: 1; }
+
+      .theme--full .content {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        margin-bottom: 17pt;
+        padding-top: 32pt;
+      }
+
+      .layout--1920x1080.theme--full .content {
+        margin-bottom: 9pt;
+      }
+
+      .layout--1080x1920 .content  {
+        flex-direction: column;
+      }
+
+      .subheading {
+        margin-bottom: 23.5pt;
+      }
+
+      .theme--full .subheading {
+        flex: 1;
+        margin-right: 22pt;
+        margin-bottom: 0;
+      }
+
+      .layout--1080x1920 .subheading {
+        margin-bottom: 29pt;
+      }
+
+      .layout--1080x1920.theme--full .subheading {
+        margin-bottom: 43pt;
+        margin-right: 0;
+      }
+
+      .subheading h2 , .subheading p {
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-size: 42.5pt;
+        line-height: 1.15em;
+        color: var(--50-black);
+      }
+      
+      .subheading p{
+        font-size: 35pt;
+      }
+
+      .theme--full .subheading h2, .theme--full .subheading p {
+        text-align: left;
+        letter-spacing: 0.5pt;
+        line-height: 1.2em;
+        color: var(--white);
+      }
+
+      .layout--1080x1920 .subheading h2, .layout--1080x1920 .subheading p {
+        font-size: 44.5pt;
+        letter-spacing: -0.2pt;
+        text-align: center;
+      }
+      
+      .layout--1080x1920 .subheading p{
+        font-size: 34.5pt;
+      }
+
+      .layout--1080x1920.theme--full .subheading h2, .layout--1080x1920.theme--full .subheading p {
+        font-size: 43.4pt;
+        text-align: center;
+        letter-spacing: 0.2pt;
+      }
+      
+      .layout--1080x1920.theme--full .subheading p{
+        font-size: 33.4pt;
+      }
+
+      .alignContent--left.layout--1080x1920.theme--half .subheading h2,
+      .alignContent--left.layout--1080x1920.theme--full .subheading h2,
+      .alignContent--left.layout--1080x1920.theme--half .subheading p,
+      .alignContent--left.layout--1080x1920.theme--full .subheading p{
+        text-align: left;
+      }
+
+      .alignContent--center.layout--1920x1080.theme--full .subheading h2,
+      .alignContent--center.layout--1920x1080.theme--full .subheading p{
+        text-align: center;
+      }
+
+      .copy {
+        margin-bottom: 31pt;
+      }
+      
+      .layout--1920x1080 .copy { margin-bottom: 0; }
+
+      .theme--full .copy {
+        flex: 1;
+        margin-bottom: 0;
+        color: var(--process-black);
+      }
+
+      .layout--1080x1920.theme--full .copy {
+        padding: 63pt 0 0;
+        flex-grow: 0;
+      }
+
+      .copy p {
+        text-align: center;
+        font-size: 42pt;
+        line-height: 1.05em;
+        color: var(--50-black);
+      }
+
+      .theme--full .copy p {
+        text-align: left;
+        font-size: 50pt;
+        line-height: 1.3em;
+        color: var(--white);
+      }
+
+      .layout--1080x1920.theme--full .copy p {
+        font-size: 55pt;
+        text-align: center;
+      }
+
+      .alignContent--left.layout--1920x1080.theme--half .copy p,
+      .alignContent--left.layout--1080x1920.theme--full .copy p {
+        text-align: left;
+      }
+
+      .alignContent--center.layout--1920x1080.theme--full .copy p {
+        text-align: center;
+      }
+
+      .partnerLogo {
+        width: 100%;
+        height: 94pt;
+        object-fit: contain;
+        object-position: center;
+        margin-bottom: 34pt;
+        display: none;
+      }
+
+      .alignContent--left.layout--1920x1080.theme--half .partnerLogo,
+      .alignContent--left.layout--1080x1920.theme--full .partnerLogo,
+      .alignContent--left.layout--1080x1920.theme--half .partnerLogo {
+        object-position: left;
+      }
+
+      .alignContent--center.layout--1920x1080.theme--full .partnerLogo {
+        object-position: center center;
+      }
+
+      .theme--full .partnerLogo {
+        width: 659pt;
+      }
+
+      .partnerLogo--primary {
+        align-self: center;
+      }
+
+      .partnerLogo--secondary {
+        display: block;
+      }
+
+      .layout-1920x1080.theme--full .partnerLogo {
+        margin-bottom: 0;
+      }
+
+      .layout--1920x1080.theme--full .partnerLogo--secondary.u-hide {
+        display: none;
+      }
+
+      .layout--1920x1080.theme--full .partnerLogo--primary.u-show {
+        display: block;
+        align-self: flex-start;
+      }
+
+      .layout--1920x1080.theme--full .partnerLogo {
+        margin-bottom: 17pt;
+        object-position: left center;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+      }
+
+      .theme--full .info {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 100%;
+        padding-bottom: 18pt;
+      }
+
+      .layout--1920x1080.theme--full .info {
+        padding-bottom: 0;
+      }
+
+      .alignContent--center.layout--1920x1080.theme--full .info {
+        justify-content: center;
+      }
+
+      .layout--1920x1080.theme--half .info {
+        width: 620pt;
+      }
+
+      .layout--1080x1920.theme--full .info {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .alignContent--left.layout--1080x1920.theme--full .info {
+        align-items: flex-start;
+      }
+
+      .layout--1920x1080.theme--full .info.u-right {
+        justify-content: flex-end;
+      }
+
+      .url {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 0;
+        max-width: 100%;
+      }
+
+
+      .url .textFit {
+        font-size: 44.3pt;
+        line-height: 1.2em;
+      }
+
+      .url strong {
+        color: var(--primary-gold);
+      }
+
+      .url a {
+        text-decoration: none;
+        color: var(--white);
+      }
+
+      .url strong a {
+        color: var(--primary-gold);
+      }
+
+      .layout--1920x1080.theme--full .url {
+        max-width: 670pt;
+      }
+
+      .theme--half .url a {
+        color: var(--process-black);
+      }
+
+      .theme--half .url strong a {
+        color: var(--primary-gold);
+      }
+
+      .theme--full .url .textFit {
+        font-size: 59pt;
+        letter-spacing: 0.4pt;
+        color: var(--white);
+      }
+
+      .layout--1080x1920 .url .textFit {
+        font-size: 51.3pt;
+      }
+
+      .layout--1080x1920.theme--full .url {
+        margin-top: 24pt;
+      }
+
+      .layout--1080x1920.theme--full .url .textFit {
+        font-size: 64pt;
+      }
+
+      .alignContent--left.layout--1080x1920.theme--half .url,
+      .alignContent--left.layout--1920x1080.theme--half .url {
+        text-align: left;
+      }
+
+      .alignContent--center.layout--1920x1080.theme--full .url {
+        flex: 1;
+      }
+
+      .hero {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 726pt;
+      }
+
+      .theme--full .hero {
+        width: auto;
+        left: 0;
+      }
+
+      .layout--1080x1920 .hero {
+        width: 100%;
+        min-height: 630pt;
+      }
+
+      .layout--1080x1920.theme--full .hero {
+        top: 0;
+        max-height: 100%;
+      }
+
+      .layout--1080x1920.theme--half .hero {
+        position: relative;
+      }
+
+      .cricos {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        height: 37pt;
+        padding: 0pt 32pt 9pt 0;
+        font-family: 'TheSans SemBd B';
+        font-size: 11pt;
+        line-height: 1.2em;
+        color: var(--process-black);
+        background-color: var(--primary-gold);
+      }
+
+      .theme--full .u-center {
+        justify-content: center;
+      }
+
+      .theme--full .u-text-center h2 {
+        text-align: center;
+      }
+
+      /* Gradients */
+
+      .left-grad,
+      .top-grad,
+      .bottom-grad {
+        position:absolute;
+        left:0;
+      }
+
+      .left-grad,
+      .top-grad {
+        top:0;
+      }
+
+      .bottom-grad {
+        bottom:0;
+      }
+
+      .top-grad{
+        height: {{top-grad-height}}%;
+        width:100%;
+        background: linear-gradient(180deg, {{{grad-colour}}}, transparent 100%);
+      }
+
+      .left-grad{
+        height:100%;
+        width: {{left-grad-width}}%; 
+        background: linear-gradient(90deg, {{{grad-colour}}}, transparent 100%);        
+      }
+
+      .bottom-grad{
+        height: {{bottom-grad-height}}%;
+        width:100%;
+        background: linear-gradient(0deg, {{{grad-colour}}}, transparent 100%);
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" data-crop="{{show-crop}}">
+    <div class="page theme--{{{FLN_theme--ds}}}{{^FLN_theme--ds}}half{{/FLN_theme--ds}}
+                layout--{{{FLN_layout--ds}}}{{^FLN_layout--ds}}1920x1080{{/FLN_layout--ds}}
+                alignContent--{{{FLN_content-alignment--ds}}}{{^FLN_content-alignment--ds}}center{{/FLN_content-alignment--ds}}
+                logo--{{{FLN_logo-toggle--ds}}}{{^FLN_logo-toggle--ds}}show{{/FLN_logo-toggle--ds}}">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="left-grad"></div>
+          <div class="top-grad"></div>
+          <div class="bottom-grad"></div>
+          <div class="section {{#FLN_copy--ds}}u-pb{{/FLN_copy--ds}}">
+            <img class="logo logo--white" src="{{account.logos.reversedHorizontal_svg}}">
+            <img class="logo logo--black" src="https://files.outfit.io/media_library_items/129702/Flinders%2520University%2520Logo%2520Black.png">
+            {{#FLN_headline--ds}}
+            <div class="heading u-heading-patch" data-max-line="2">{{{FLN_headline--ds}}}</div><!--heading-->
+            {{/FLN_headline--ds}}
+            <div class="divider divider--primary {{^FLN_partner-logo--ds}}u-hide{{/FLN_partner-logo--ds}}"></div><!--divider-->
+            <div class="content__wrapper">
+              <div data-max-height="dynamic">
+                <div class="content">
+                  {{#FLN_subheadline--ds}}
+                  <div class="subheading">{{{FLN_subheadline--ds}}}</div><!--subheading-->
+                  {{/FLN_subheadline--ds}}
+                  <div class="divider divider--secondary {{^FLN_copy--ds}}u-hide{{/FLN_copy--ds}}"></div><!--divider-->
+                  {{#FLN_copy--ds}}
+                  <div class="copy">{{{FLN_copy--ds}}}</div><!--copy-->
+                  {{/FLN_copy--ds}}
+                  {{#FLN_partner-logo--ds}}
+                  {{#FLN_partner-logo--ds}}<img class="partnerLogo partnerLogo--primary {{^FLN_copy--ds}}u-show{{/FLN_copy--ds}}" src="{{{FLN_partner-logo--ds}}}">{{/FLN_partner-logo--ds}}
+                  {{/FLN_partner-logo--ds}}
+                </div><!--content-->
+              </div><!-- end dynamic -->
+            </div><!-- end content__wrapper -->
+            <div class="info {{^FLN_copy--ds}}u-center{{/FLN_copy--ds}} {{^FLN_url--ds}}u-right{{/FLN_url--ds}}">
+              {{#FLN_url--ds}}
+              <div class="url"><span class="textFit">{{{FLN_url--ds}}}</span></div><!--url-->
+              {{/FLN_url--ds}}
+              {{#FLN_partner-logo--ds}}
+              <img class="partnerLogo partnerLogo--secondary {{^FLN_copy--ds}}u-hide{{/FLN_copy--ds}}" src="{{{FLN_partner-logo--ds}}}">
+              {{/FLN_partner-logo--ds}}
+            </div><!--info-->
+          </div><!--section-->
+          <div class="hero">
+            <div class="backgroundImage">{{{FLN_background--ds}}}<div class="reposition-fix"></div></div><!--backgroundImage-->
+          </div><!--hero-->
+          <div class="cricos">CRICOS No. 00114A</div><!--cricos-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
