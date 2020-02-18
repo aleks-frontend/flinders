@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html data-sign="OS?">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <style>
+
+      {{{account.snippets.fonts}}}
+
+      html {
+        font-family: "Circular";
+        font-size: 11pt;
+        color: #000;
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .container.fit{
+        display:flex;
+        flex-direction: column;
+      }
+
+      .wrapper{
+        width:100%;
+        margin-bottom:0.4em;
+        padding:1.2em 1.2em 0em 1.2em;
+      }
+
+      .show-crop .page-2 .wrapper{
+        height:86% !important;
+      }
+
+      header{
+        display: flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom: 0.67em;
+      }
+
+      header .logo{
+        width:3.8em;
+      }
+
+      .bottom-border{
+        width:100%;
+        height:0.55em;
+        background: #FFD635;
+        position: absolute;
+        bottom:0;
+      }
+
+      .bottom-border p{
+        position: absolute;
+        right: 30px;
+        bottom: 18px;
+        font-size: 3.4pt;
+        color: black;
+        font-family: 'Akzidenz Grotesk BE';
+        font-weight: bold;
+      }
+
+      .cover-image{
+        position:relative;
+        width:100%;
+        height: 40%;
+        overflow: hidden;
+        flex:1;
+      }
+
+      .cover-image div{
+        position: relative;
+        width:100%;
+        height: 100%;
+      }
+
+      .body-content {
+        height:96%;
+      }
+      .body-content.flex{
+        height:83%;
+      }
+
+      .body-content .heading{
+        font-family: 'Akzidenz Grotesk BE Cn';
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 50pt;
+        line-height: 66px !important;
+        word-spacing: 7px;
+        width: 95%;
+        margin-bottom:0.18em;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .body-content .heading strong{
+        color:  #FFD635;
+      }
+
+      .body-content .copy {
+        margin-bottom:0.41em;
+      }
+
+      .body-content .copy h2{
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-size: 18pt;
+        font-style: normal;
+        margin-bottom: 0.34rem;
+      }
+
+      .body-content .copy p{
+        font-family: 'Akzidenz Grotesk BE';
+        font-weight: normal;
+        font-style: normal;
+        font-size:9pt;
+        line-height:14px;
+      }
+
+      .body-content .url {
+        font-family: 'Akzidenz Grotesk BE Cn';
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 18pt;
+        line-height: 21px;
+        position: absolute;
+        bottom: 2.66em;
+      }
+
+      .body-content .url a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .page-2   .body-content .heading h2{
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-size: 25pt;
+        font-style: normal;
+        margin-bottom:0.34rem;
+        line-height: normal;
+        text-transform: none;
+        word-spacing: 0;
+      }
+
+      .page-2 .body-content .heading{
+        /*margin-bottom: 0.18em;*/
+        margin-bottom: 0.35em;
+      }
+
+      .page-2 .columns-wrapper{
+        width: 100%;
+        display: flex;
+        margin-bottom: 0.8em;
+        flex: 1;
+      }
+
+      .page-2 .column{
+        width: 50%;
+        height: 100%;
+        position: relative;
+        margin-right:18px;
+        flex: 1;
+        max-height: 100%;
+      }
+
+      .page-2 .column ul{
+        list-style: disc;
+        margin-left: 1em;
+      }
+
+      .page-2 .column:last-child{
+        margin-right:0px;
+      }
+
+      .page-2 .column .col-text{
+        font-family: 'Akzidenz Grotesk BE';
+        font-weight: normal;
+        font-style: normal;
+        font-size:9pt;
+        line-height:14px;
+        margin-bottom: 10px;
+      }
+
+      .page-2 .column .col-text p {
+        margin-bottom:0.255rem;
+      }
+      .page-2 .column .col-text h1{
+        font-family: 'Akzidenz Grotesk BE';
+        font-size: 12pt !important;
+        font-weight: bold;
+        line-height: 1em;
+        margin-bottom: 0.255rem;
+      }
+
+      .page-2 .column .col-text h2{
+        font-family: 'Akzidenz Grotesk BE';
+        font-size: 10pt !important;
+        font-weight: bold;
+        line-height: 1.1em;
+        margin-bottom: 0.255rem;
+      }
+      .page-2 .column .col-text h3{
+        font-family: 'Akzidenz Grotesk BE';
+        font-size: 11pt !important;
+        line-height: 1.1em;
+        margin-bottom: 0.255rem;
+      }
+
+      .page-2 .column .col-text,
+      .page-2 .column .col-text p:last-child,
+      .page-2 .column .col-text h1:last-child,
+      .page-2 .column .col-text h2:last-child,
+      .page-2 .column .col-text h3:last-child {
+        margin-bottom: 0;
+      }
+
+
+
+      .page-2 .column .col-img{
+        position: relative;
+        top: 0;
+        left:0;
+        right:0;
+        overflow: hidden;
+        bottom: auto;
+        margin-bottom: 10px;
+      }
+
+
+
+      .col-text ~ .col-img {
+        margin-top: 10px;
+      }
+
+      .page-2 .column .col-img-cap{
+        font-family: 'Akzidenz Grotesk BE';
+        font-weight: bold;
+        font-style: normal;
+        font-size:9pt;
+        line-height:14px;
+        margin: 10px 0;
+      }
+
+      .column:nth-child(1):nth-last-child(3) .col-img,
+      .column:nth-child(2):nth-last-child(2) .col-img,
+      .column:nth-child(3):nth-last-child(1) .col-img {
+        padding: 50% 0 ;
+      }
+
+      .column:nth-child(1):nth-last-child(2) .col-img:only-child,
+      .column:nth-child(2):nth-last-child(1) .col-img:only-child {
+        height: 100%;
+        margin: 0;
+        padding:0;
+      }
+
+      .u-hide{
+        display:none !important;
+      }
+      
+      .token-value.token-empty { display: none !important; }
+    </style>
+  </head>
+  <body style="background: white" data-crop="{{show-crop}}">
+    <div class="page page-2">
+
+      <div class="bleed">
+
+        <div class="container fit">
+          <div class="wrapper" style="height:100%;">
+            <header style="display:{{FU-pg2-logo-toggle}}">
+              <div class="logo" >
+                <img src="{{FU-logo}}">
+              </div>
+            </header>
+            <div class="body-content {{FU-pg2-logo-toggle}}" style="display: flex; flex-direction: column;">
+
+              {{#FU-heading-h1h2}}<div class="heading u-heading-patch" data-max-line="3">{{{FU-heading-h1h2}}}</div>{{/FU-heading-h1h2}}
+              <div class="columns-wrapper">
+
+                {{#collection.columns-2columns}}
+                {{#block.column}}
+                <div class="column" data-max-height="700">
+                  {{#collection.column-content}}
+                  {{#block.text}}
+                  <div class="col-text">{{{col-text}}}</div>
+                  {{/block.text}}
+                  {{#block.image}}
+                  <div class="col-img" style="height:{{img-height-slider}}{{^img-height-slider}}200{{/img-height-slider}}px;"><div class="reposition-fix">{{{col-img}}}{{^col-img}}<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; background: url('https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg') center center / cover no-repeat" class="outfit-resizable-background">
+          <img src="https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg" style="display: none; width: 0; height: 0;">
+        </div>{{/col-img}}</div></div>
+                  {{#col-img-cap}}
+                  <div class="col-img-cap" data-max-line="2"> {{{col-img-cap}}}</div>
+                  {{/col-img-cap}}
+                  {{/block.image}}
+                  {{/collection.column-content}}
+                </div>
+                {{/block.column}}
+                {{/collection.columns-2columns}}
+
+              </div>
+
+              <div class="url" data-max-line="2"><a href="{{{FU-url}}}">{{{FU-url}}}</a></div>            
+            </div>
+          </div>
+          <div class="bottom-border"><p>CRICOS No. 00114A | OF_{{#metadata}}{{export_id}}{{/metadata}}{{^metadata}}XXXXX{{/metadata}}</p></div>
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+      var imgWidth = document.getElementsByClassName("col-img").clientWidth;
+
+      console.log(imgWidth);
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+      
+      setInterval(() => {
+        //maxHeightCheck();
+      }, 1000);
+
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
