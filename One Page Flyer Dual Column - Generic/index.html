@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-sign="OS?">
+<html data-sign="OS?" async>
   <head>
     <title>Template title</title>
     <meta charset="utf-8">
@@ -69,7 +69,7 @@
       }
 
       .show-crop .page-2 .wrapper{
-        height:86% !important;
+        /*height:86% !important; */
       }
 
       header{
@@ -191,13 +191,13 @@
       .page-2 .columns-wrapper{
         width: 100%;
         display: flex;
+        align-items: flex-start;
         margin-bottom: 0.8em;
         flex: 1;
       }
 
       .page-2 .column{
         width: 50%;
-        height: 100%;
         position: relative;
         margin-right:18px;
         flex: 1;
@@ -321,7 +321,7 @@
 
                 {{#collection.columns-2columns}}
                 {{#block.column}}
-                <div class="column" data-max-height="700">
+                <div class="column" data-max-height="dynamic">
                   {{#collection.column-content}}
                   {{#block.text}}
                   <div class="col-text">{{{col-text}}}</div>
@@ -433,7 +433,18 @@
 
 
     </script>
+    <script type="text/javascript">
+      // Add many fallbacks for Print Ready
+      document.addEventListener('DOMContentLoaded', function(event) {
+        document.dispatchEvent(new Event('printready'));
+      });
 
+      setTimeout(function() {
+        document.dispatchEvent(new Event('printready'));
+      }, 1500);
+
+      document.dispatchEvent(new Event('printready'));
+    </script>
 
   </body>
 </html>
