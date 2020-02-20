@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-sign="OS?">
+<html data-sign="OS?" async>
   <head>
     <title>Template title</title>
     <meta charset="utf-8">
@@ -205,13 +205,13 @@
       .page-2 .columns-wrapper{
         width: 100%;
         display: flex;
+        align-items: flex-start;
         margin-bottom: 0.6em;
         flex: 1;
       }
 
       .page-2 .column{
         width: 50%;
-        height: 100%;
         position: relative;
         margin-right:18px;
       }
@@ -484,9 +484,19 @@
         selector: '.textFit'
       });
 
-
     </script>
+    <script type="text/javascript">
+      // Add many fallbacks for Print Ready
+      document.addEventListener('DOMContentLoaded', function(event) {
+        document.dispatchEvent(new Event('printready'));
+      });
 
+      setTimeout(function() {
+        document.dispatchEvent(new Event('printready'));
+      }, 1500);
+
+      document.dispatchEvent(new Event('printready'));
+    </script>
 
   </body>
 </html>
