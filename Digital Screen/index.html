@@ -21,6 +21,7 @@
       {{FLN_theme--ds}}
       {{FLN_layout--ds}}
       {{FLN_logo-toggle--ds}}
+      {{logo}}
       {{FLN_background--ds}}
       {{grad-colour}}
       {{top-grad-height}}
@@ -28,7 +29,6 @@
       {{bottom-grad-height}}
       {{FLN_content-alignment--ds}}
       {{FLN_headline--ds}}
-      {{FLN_headline-size--ds}}
       {{FLN_subheadline--ds}}
       {{FLN_copy--ds}}
       {{FLN_partner-logo--ds}}
@@ -66,6 +66,7 @@
         overflow: hidden;
         z-index: -1;
       }
+      
 
       .backgroundImage div {
         width: auto !important;
@@ -127,7 +128,7 @@
 
       .layout--1080x1920.theme--half .section {
         flex-direction: column;
-        padding: 82pt 76pt 51pt 76pt;
+        padding: 82pt 76pt 1.7pt 76pt;
         max-height: 790pt;
       }
       
@@ -239,7 +240,7 @@
       }
 
       .layout--1080x1920.theme--full .heading {
-        font-size: 76pt;
+        font-size: calc(76pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
       }
 
       .heading h1 {
@@ -353,13 +354,13 @@
       }
 
       .layout--1080x1920.theme--full .subheading h2, .layout--1080x1920.theme--full .subheading p {
-        font-size: 43.4pt;
+        font-size: calc(43.4pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
         text-align: center;
         letter-spacing: 0.2pt;
       }
       
       .layout--1080x1920.theme--full .subheading p{
-        font-size: 33.4pt;
+        font-size: calc(33.4pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
       }
 
       .alignContent--left.layout--1080x1920.theme--half .subheading h2,
@@ -492,7 +493,7 @@
       }     
 
       .alignContent--center.layout--1920x1080.theme--full .info {
-        justify-content: center;
+        justify-content: space-between;
       }
 
       .theme--half .info {
@@ -526,10 +527,29 @@
         max-width: 100%;
       }
       
+      .theme--half .url h2 {
+        font-size: 0.5rem;
+      }
+      
+      .theme--half .url h1 {
+        font-size: 0.7rem;
+      } 
+      
       .theme--half .url {
         margin-bottom: 35px;
-        text-align: left;
         text-transform: initial;
+      }
+      
+      .theme--half .url .url-flex {
+        display: flex !important;
+      }
+      
+      .theme--half.alignContent--center .url .url-flex {
+        justify-content: center;
+      }
+      
+      .theme--half.alignContent--left .url .url-flex {
+        justify-content: flex-start;
       }
 
       .url .textFit {
@@ -539,9 +559,13 @@
       
       .theme--half .url .textFit { font-size: 22pt; }
       
-      .theme--half .url .textFit::before {
+  /*    .theme--half .url .textFit::before {
         content: 'Register now:';
-      }
+        font-size: inherit;
+      } */
+      
+      
+
 
       .url strong {
         color: var(--primary-gold);
@@ -572,6 +596,14 @@
         font-size: 59pt;
         letter-spacing: 0.4pt;
         color: var(--white);
+      }
+      
+      .theme--full .url h2 {
+        font-size: 0.7rem;
+      }
+      
+      .theme--full .url p {
+        font-size: 0.5rem;
       }
 
       .layout--1080x1920 .url .textFit {
@@ -685,11 +717,13 @@
       
       /* mainContent element that will be visible only in half image variations - replacing Headline, Subheadline and Event Details inputs */
       .mainContent { display: none; }
-      
+
       .theme--half .mainContent { 
-        display: block; 
+        display: flex;
         width: 100%;
         flex: 1;
+        align-items: center;
+        justify-content: center;
       }
       
       .alignContent--center .mainContent { text-align: center; }
@@ -697,21 +731,26 @@
       
       .mainContent h1 {
         margin-bottom: 18pt;
-        font-size: 56.4pt;
+        font-size: calc(56.4pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
+        
       }
       
       .mainContent h2 {
         margin-bottom: 23.5pt;
         font-family: 'Akzidenz-Grotesk Std Cnd';
-        font-size: 42.5pt;
+        font-size: calc(34.7pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
         line-height: 1.15em;
       }      
 
       .mainContent p {
         margin-bottom: 0.5em;
-        font-size: 42pt;
+        font-size: calc(42pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
         line-height: 1.05em;        
-      }     
+      }  
+      
+      .theme--half .mainContent p {
+        font-size: calc(26pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
+      }
       
       /* Using strong formatting to switch to light color */
       .mainContent strong {
@@ -725,7 +764,7 @@
       .theme--half .u-hide-on-half-image { display: none; }
       
       /* Partner Logo Grid - only visible on Half image themes */
-      .logoGrid {
+      .logoGrid, .logoGrid-2 {
         display: none;
         width: 100%;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -740,9 +779,29 @@
       
       .logoGrid__image {
         width: 100%;
-        height: 100%;
+        height: 70%;
         object-fit: contain;
         object-position: center;
+      }
+      
+      @media (min-height:1920px) {
+        .theme--full .logoGrid { display: grid; }
+      }
+      
+      @media (min-width:1920px) {
+        .theme--full .logoGrid-2 { 
+          display: grid;
+          width: 44%;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          grid-gap: 20px; 
+        }
+        .alignContent--center.layout--1920x1080.theme--full .url {
+          margin-bottom: 0.4rem;
+        }
+      }
+      
+      .logo--hide .logo.custom{
+        display: none;
       }
 
       /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
@@ -765,8 +824,9 @@
           <div class="top-grad"></div>
           <div class="bottom-grad"></div>
           <div class="section {{#FLN_copy--ds}}u-pb{{/FLN_copy--ds}}">
-            <img class="logo logo--white" src="{{account.logos.reversedHorizontal_svg}}">
-            <img class="logo logo--black" src="https://files.outfit.io/media_library_items/129702/Flinders%2520University%2520Logo%2520Black.png">
+            {{^logo}}<img class="logo logo--white" src="{{account.logos.reversedHorizontal_svg}}">
+            <img class="logo logo--black" src="https://files.outfit.io/media_library_items/129702/Flinders%2520University%2520Logo%2520Black.png">{{/logo}}
+            {{#logo}}<img class="logo custom" src="{{{logo}}}">{{/logo}}
             <div class="mainContent">
               <div data-max-height="dynamic">
                 {{{FLN_mainContent--ds}}}
@@ -794,17 +854,21 @@
             </div><!-- end content__wrapper -->
             <div class="info {{^FLN_copy--ds}}u-center{{/FLN_copy--ds}} {{^FLN_url--ds}}u-right u-url-empty{{/FLN_url--ds}} {{^FLN_partner-logo--ds}}u-logo-empty{{/FLN_partner-logo--ds}}">
               {{#FLN_url--ds}}
-              <div class="url"><span class="textFit">{{{FLN_url--ds}}}</span></div><!--url-->
+              <div class="url"><span class="textFit url-flex">{{{FLN_url--ds}}}</span></div><!--url-->
               {{/FLN_url--ds}}
-              {{#FLN_partner-logo--ds}}
-              <img class="partnerLogo partnerLogo--secondary {{^FLN_copy--ds}}u-hide{{/FLN_copy--ds}} u-hide-on-half-image" src="{{{FLN_partner-logo--ds}}}">
-              {{/FLN_partner-logo--ds}}
+
               <div class="logoGrid">
                 {{#FLN_partner-logo--ds}}<div class="logoGrid__item"><img class="logoGrid__image" src="{{{FLN_partner-logo--ds}}}"></div>{{/FLN_partner-logo--ds}}
                 {{#FLN_partner-logo2--ds}}<div class="logoGrid__item"><img class="logoGrid__image" src="{{{FLN_partner-logo2--ds}}}"></div>{{/FLN_partner-logo2--ds}}
                 {{#FLN_partner-logo3--ds}}<div class="logoGrid__item"><img class="logoGrid__image" src="{{{FLN_partner-logo3--ds}}}"></div>{{/FLN_partner-logo3--ds}}
                 {{#FLN_partner-logo4--ds}}<div class="logoGrid__item"><img class="logoGrid__image" src="{{{FLN_partner-logo4--ds}}}"></div>{{/FLN_partner-logo4--ds}}
                 {{#FLN_partner-logo5--ds}}<div class="logoGrid__item"><img class="logoGrid__image" src="{{{FLN_partner-logo5--ds}}}"></div>{{/FLN_partner-logo5--ds}}
+              </div>
+              
+              <div class="logoGrid-2">
+                {{#FLN_partner-logo--ds}}<div class="logoGrid__item"><img class="logoGrid__image" src="{{{FLN_partner-logo--ds}}}"></div>{{/FLN_partner-logo--ds}}
+                {{#FLN_partner-logo2--ds}}<div class="logoGrid__item"><img class="logoGrid__image" src="{{{FLN_partner-logo2--ds}}}"></div>{{/FLN_partner-logo2--ds}}
+                {{#FLN_partner-logo3--ds}}<div class="logoGrid__item"><img class="logoGrid__image" src="{{{FLN_partner-logo3--ds}}}"></div>{{/FLN_partner-logo3--ds}}
               </div>
             </div><!--info-->
           </div><!--section-->
