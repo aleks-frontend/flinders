@@ -119,11 +119,11 @@
         height: 15.7em;
       }
 
-      .body-content .heading{
+      .body-content .heading {
         font-family: 'Akzidenz Grotesk BE Cn';
         font-weight: 500;
         text-transform: uppercase;
-        font-size: 1.166rem;
+        font-size: 1.2rem;
         line-height: 1.154rem !important;
         word-spacing: 0.122rem;
         width: 95%;
@@ -251,7 +251,7 @@
 
       .table-column {
         flex-shrink: 0;
-        border-top: 0.017remsolid {{{account.colors.process-black}}};
+        border-top: 0.017rem solid {{{account.colors.process-black}}};
         border-left: 0.017rem solid {{{account.colors.process-black}}};
       }
 
@@ -341,13 +341,13 @@
                     <div class="table {{ad-table-design}} {{show-header-row}}">
                       {{#spreadsheet.table-7-col}}
                       <div class="row">
-                        <div class="table-column" data-col-index="1"><p>{{{column-1}}}</p></div>
-                        <div class="table-column" data-col-index="2"><p>{{{column-2}}}</p></div>
-                        <div class="table-column" data-col-index="3"><p>{{{column-3}}}</p></div>
-                        <div class="table-column" data-col-index="4"><p>{{{column-4}}}</p></div>
-                        <div class="table-column" data-col-index="5"><p>{{{column-5}}}</p></div>
-                        <div class="table-column" data-col-index="6"><p>{{{column-6}}}</p></div>
-                        <div class="table-column" data-col-index="7"><p>{{{column-7}}}</p></div>
+                        {{#column-1}}<div class="table-column" data-col-index="1"><p>{{{column-1}}}</p></div>{{/column-1}}
+                        {{#column-2}}<div class="table-column" data-col-index="2"><p>{{{column-2}}}</p></div>{{/column-2}}
+                        {{#column-3}}<div class="table-column" data-col-index="3"><p>{{{column-3}}}</p></div>{{/column-3}}
+                        {{#column-4}}<div class="table-column" data-col-index="4"><p>{{{column-4}}}</p></div>{{/column-4}}
+                        {{#column-5}}<div class="table-column" data-col-index="5"><p>{{{column-5}}}</p></div>{{/column-5}}
+                        {{#column-6}}<div class="table-column" data-col-index="6"><p>{{{column-6}}}</p></div>{{/column-6}}
+                        {{#column-7}}<div class="table-column" data-col-index="7"><p>{{{column-7}}}</p></div>{{/column-7}}
                       </div>
                       {{/spreadsheet.table-7-col}}
                     </div>
@@ -376,19 +376,11 @@
     <script src="js/hide-empty-titles.js"></script>
     <script src="js/dynamic-inject.js"></script>
     <script src="js/text-fit-min.js"></script>
+    <script src="js/fontfaceobserver.js"></script>
     <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
-    <script>
-      let dataEls = document.querySelectorAll(".table-column");
-      dataEls.forEach(el => {
-        if(el.innerText == ""){
-          el.remove();
-        } else if(el.innerText == "-"){
-          el.innerText = "";
-        }
-      });
-    </script>
 
     <script>
+
       var imgWidth = document.getElementsByClassName("col-img").clientWidth;
 
       // Tracking text changes and firing text restriction functions (mutationObserver)
@@ -431,15 +423,6 @@
           });            
         });
       }    
-
-      // Calling text size restriction functions once the fonts are loaded
-      document.fonts.ready.then(() => {
-        maxLineCheck();
-        maxHeightCheck();
-        detectProjectKit();
-        injectDynamicContent();
-        hideEmptyTitles();
-      });
 
       setInterval(() => {
         maxHeightCheck();
@@ -497,21 +480,38 @@
         }
       }
 
-      checkTableWidth();
+      function removeEmpty(){
+        let dataEls = document.querySelectorAll(".table-column");
+        dataEls.forEach(el => {
+          if ( el.innerText.trim() === "-" ){
+            el.innerText = "";
+          }
+        });
+      }
 
-
-    </script>
-    <script type="text/javascript">
-      // Add many fallbacks for Print Ready
       document.addEventListener('DOMContentLoaded', function(event) {
-        document.dispatchEvent(new Event('printready'));
-      });
+        const fonts = ['Akzidenz Grotesk BE','Akzidenz Grotesk BE Cn','Akzidenz-Grotesk Std Cnd'];
+        const fontObservers = [];
 
-      setTimeout(function() {
-        document.dispatchEvent(new Event('printready'));
-      }, 1500);
+        fonts.forEach(font => {
+          const obs = new FontFaceObserver(font);
+          fontObservers.push(obs.load())
+        });
 
-      document.dispatchEvent(new Event('printready'));
+        Promise.all(fontObservers).then(() => {
+          maxLineCheck();
+          maxHeightCheck();
+          detectProjectKit();
+          injectDynamicContent();
+          hideEmptyTitles();
+          checkTableWidth();
+          removeEmpty();
+
+          document.dispatchEvent(new Event('printready'));
+        });
+      });     
+
+
     </script>
 
   </body>
