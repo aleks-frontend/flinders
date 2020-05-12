@@ -630,27 +630,29 @@
                       {{#spreadsheet.FLN_degrees--dof}}
                       <div class="degrees">
                         {{#degree}}
-                        <div class="degrees__text u-bold"><div class="js-customRichText-src">{{{degree}}}</div></div> <!--degrees__text -->
+                        <div class="degrees__text u-bold" data-original-input="{{degree}}">
+                          <div class="js-customRichText-src">{{{degree}}}</div>
+                        </div> <!--degrees__text -->
                         {{/degree}}
                         {{#satac-code}}
-                        <div class="degrees__text">
+                        <div class="degrees__text" data-original-input="{{satac-code}}">
                           <div class="label">SATAC code:</div>
                           <div class="js-customRichText-src"> {{{satac-code}}}</div>
                         </div> <!--degrees__text -->
                         {{/satac-code}}
                         {{#duration}}
-                        <div class="degrees__text">
+                        <div class="degrees__text" data-original-input="{{duration}}">
                           <div class="label">Duration:</div>
                           <div class="js-customRichText-src"> {{{duration}}}</div>
                         </div> <!--degrees__text -->
                         {{/duration}}
                         {{#disclaimer}}
-                        <div class="degrees__text">
+                        <div class="degrees__text" data-original-input="{{disclaimer}}">
                           <div class="js-customRichText-src">{{{disclaimer}}}</div>
                         </div> <!--degrees__text -->
                         {{/disclaimer}}
                         {{#location}}
-                        <div class="degrees__text">
+                        <div class="degrees__text" data-original-input="{{location}}">
                           <div class="label">Location:</div>
                           <div class="js-customRichText-src"> {{{location}}}</div>
                         </div> <!--degrees__text -->
@@ -945,26 +947,6 @@
       }
 
       showLastUpdate();
-
-            function dataReplace() {
-        const elements = document.querySelectorAll('[data-replace-from]');
-        if ( elements.length === 0 ) return;
-
-        elements.forEach(el =>{
-          const text = el.innerText.toLowerCase();
-          const html = el.innerHTML;          
-          const lookup = el.dataset.replaceFrom.toLowerCase();
-          const replace = el.dataset.replaceTo;
-
-          if( text.search(lookup) != -1 && (replace != "" || replace.length != 0) ) {
-            el.innerHTML = html.split(lookup).join(replace);
-          }
-        });
-      }
-
-      setInterval(() => {
-        dataReplace();
-      }, 250);
       
     </script>
 
