@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html data-sign="OS?">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      
+      {{{account.snippets.fonts}}}
+
+      html {
+        font-family: "Circular";
+        font-size: 11pt;
+        color: white;
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+      
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0; 
+        width: 100%;
+        height: 100%;
+      }
+      
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      
+      .FU-background{
+        z-index: -1;
+      }
+      
+      header{
+        z-index: 5;
+        position: relative;
+        height: 9em;
+        margin-left: 1.1em;
+        margin-top: 1.2em;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      header img.logo{
+        width: 4.4em;
+        height: auto;
+        z-index: 999;
+        margin-left: 0.1em;
+      }
+      
+      header img.heading-graphic{
+        width: 7em;
+        height: auto;
+        z-index: 999;
+      }
+
+      .body-content{
+        width: 100%;
+        padding: 1.4em 1.05em 0em 1.05em;
+      }
+      .body-content .heading{
+        font-family: 'DINPRO';
+        color: white;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 40pt;
+        margin-bottom: 0.4em;
+        line-height: 49px !important;
+      }
+       .body-content .sub-heading{
+         font-family:'DINPro';
+         color: white;
+         font-weight: 500;
+         font-size: 16pt;
+         line-height: 24px !important;
+         margin-bottom:1em;
+      }
+      
+        .body-content .content{
+          font-family: 'DINPro';
+          font-weight: 500;
+          font-size: 9pt;
+          line-height: 16px !important;
+          color: {{content-text-colour}};
+          height: 165px;
+      }
+      
+      .body-footer-wrapper{
+        display: flex;
+        justify-content: space-between; 
+        align-content:center;
+        position: absolute;
+        bottom: 1.1em;
+        padding: 0 1.05em;
+        width: 100%;
+      }
+      
+      .body-footer-wrapper .url{
+        font-family: 'DINPro';
+        font-weight: 900;
+        font-size: 24pt;
+        line-height: 32px !important;
+        color: white;
+        text-transform: uppercase;
+        max-width: 9em;
+      }
+      .body-footer-wrapper .url a{
+        text-decoration: none;
+        color: inherit; 
+      }
+  
+      
+      .body-footer-wrapper .GB-logo{
+        width:3.7em;
+      }
+      .outfit-resizable-background{
+        bottom:0 !important;
+        right:0 !important;
+      }
+
+      .cricos{
+        font-family: 'DINPro';
+        color: white;
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
+        font-size: 5pt;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+          
+          <div class="FU-background reposition-fix"><div>{{{FU-background}}}</div></div>
+          
+          <header>
+			<img class="logo" src="{{FU-logo}}"/>
+            <img class="heading-graphic" src="{{FU-heading-graphic}}"/>
+          </header>
+          
+          <div class="body-content">
+            <div class="heading" data-max-line="2">{{{heading-CP}}}</div>
+            <div class="sub-heading" data-max-line="2">{{{sub-heading}}}</div>
+            <div class="content" data-max-height="165">{{{copy-content}}}</div>
+            
+            
+          </div>
+          <div class="body-footer-wrapper">
+            <div class="url" data-max-line="2">
+              <a href="{{{url}}}">{{url}}</a>
+            </div>
+            <div class="GB-logo">
+              <img src="{{GB-logo}}"/>
+            </div>
+          </div>
+          <div class="cricos">CRICOS No. 00114A | OF_{{#metadata}}{{export_id}}{{/metadata}}{{^metadata}}XXXXX{{/metadata}}</div>
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+      
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+      
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+      
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
