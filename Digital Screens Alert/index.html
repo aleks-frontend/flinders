@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html data-sign="OS?">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <style>
+      /*
+      {{background-image}}
+      {{logo}}
+      {{logo-position}}
+      {{copy-nfo}}
+      {{font-family}}
+      {{font-size}}
+      {{text-colour}}
+      {{vertical-text-alignment-flex}}
+      {{text-transform}}
+      */
+      
+      
+      
+      {{{account.snippets.fonts}}}
+
+      html {
+        font-size: 11pt;
+        color: #000;
+        word-break: break-word;
+      }
+
+      :root{
+        --blue: {{account.colors.primary-blue}};
+        --yellow: {{account.colors.primary-gold}};
+        --white: #ffffff;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .container{
+        background-color: {{account.colors.primary-blue}};
+      }
+
+      .layer{
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .content {
+        padding: 1rem;
+        display: flex;
+      }
+
+      .content.top-left{
+        flex-direction: column;
+      }
+
+      .content.top-centre{
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .content.bottom-left{
+        flex-direction: column-reverse;
+      }
+
+      .content.bottom-centre{
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+
+      .logo {
+        max-height: 4rem;
+        max-width: 10rem;
+      }
+      
+      .logo img{
+        max-height: 4rem;
+        max-width: 10rem;
+      }
+      
+      .content.top-left .logo, .content.top-centre .logo{
+        margin-bottom: 1rem;
+      }
+
+      .text {
+        text-align: center;
+        color: var(--{{{text-colour}}}{{^text-colour}}yellow{{/text-colour}});
+        font-family: '{{{font-family}}}';
+        line-height: 1;
+        font-size: {{{font-size}}}{{^font-size}}100{{/font-size}}pt;
+        flex: 1;
+        display: flex;
+        align-items: {{{vertical-text-alignment-flex}}};
+        justify-content: center;
+        text-transform: {{{text-transform}}};
+      }
+
+      .text .inner{
+        max-height: 8rem;
+      }
+      
+      @media (width: 1080px) and (height: 1920px) {
+        .text .inner{
+        max-height: 14rem;
+      }
+      }
+
+      .cricos {
+        position: absolute;
+        bottom: 0.4rem;
+        right: 0.4rem;
+        font-size: 10pt;
+        color: var(--white);
+        font-family: 'TheSans B';
+      }
+      
+      {{^copy-nfo}}
+      /*Override Rulesets if No Text is Added*/
+      .content{
+        justify-content: center;
+        align-items: center;
+      }
+      {{/copy-nfo}}
+      
+      strong{
+        font-family: 'Akzidenz-Grotesk Std XBd Cnd';
+      }
+
+    </style>
+  </head>
+  <body style="background: white" data-crop="false" data-reduce-export-font-size-by-percent="0" data-reduce-firefox-font-size-by-percent="0" data-prevent-export-overflow="false">
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+          <div class="background-image">
+            <div class="reposition-fix">{{{background-image}}}</div>
+          </div>
+          <div class="content layer {{{logo-position}}}">
+            {{#logo}}<div class="logo"><img src="{{{logo}}}"></div>{{/logo}}
+            {{#copy-nfo}}<div class="text"><div class="inner" data-max-height="css">{{{copy-nfo}}}</div></div>{{/copy-nfo}}
+          </div>
+          <div class="cricos">CRICOS No. {{{account.snippets.cricos}}}</div>
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = false;
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/custom-rich-text.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="js/fontfaceobserver.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+      console.clear();
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      // All external font-families need to be added to 'fonts' array
+      document.addEventListener('DOMContentLoaded', function(event) {
+        const fonts = ['Circular'];
+        const fontObservers = [];
+
+        fonts.forEach(font => {
+          const obs = new FontFaceObserver(font);
+          fontObservers.push(obs.load())
+        });
+
+        Promise.all(fontObservers).then(() => {
+          maxLineCheck();
+          maxHeightCheck();
+          injectDynamicContent();
+          hideEmptyTitles();
+
+          document.dispatchEvent(new Event('printready'));
+        });
+      });      
+
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
