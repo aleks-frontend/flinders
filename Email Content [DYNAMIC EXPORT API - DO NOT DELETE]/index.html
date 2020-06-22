@@ -1,0 +1,142 @@
+<!DOCTYPE>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <style>
+    /*! minireset.css v0.0.5 | MIT License | github.com/jgthms/minireset.css */html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select,textarea{margin:0}html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}img,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0;text-align:left}
+    
+    *{
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    
+    .backgroundImage{
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .backgroundImage img{
+      width: 100%;
+      height: 100%;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+    
+    .placeholder{
+      position: absolute;
+      top:0;
+      left: 0;
+      /*background-image: url('https://files.outfit.io/media_library_items/118010/Capture.PNG');*/
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      opacity: 0.3;
+      background-size: contain;
+    }
+    
+    .content{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 3.2rem 15rem 1rem 15rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      align-content: center;
+    }
+    
+    h1{
+      font-size: 55pt;
+      font-weight: 500;
+      padding-bottom: 35pt;
+    }
+    {{#imageURL}}
+    h1{
+      font-weight: 600;
+    }
+    {{/imageURL}}
+    p{
+      font-size: 20pt;
+      font-weight: 500;
+      margin-bottom: 35pt;
+    }
+    
+    p strong{
+      font-weight: 600;
+    }
+    
+    .button {
+      width: 18.8rem;
+      padding: 1.4rem 1.3rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 1.55rem;
+      line-height: 2.1rem;
+	}
+    
+    .dark .backgroundImage{
+      background-color: #0A0F1D;
+    }
+    
+    .light .backgroundImage{
+      background-color: #ffd300;
+    }
+    
+    .dark h1, .dark p{
+      color: #ffffff;
+    }
+    
+    .light h1, .light p{
+      color: #000000;
+    }
+    
+    .dark .button{
+      background-color: #ffd300;
+      color: #000000;
+    }
+    
+    .light .button{
+      background-color: #0A0F1D;
+      color: #ffffff;
+    }
+    
+    .content.align--left{
+      text-align:left;
+      align-items:flex-start;
+      padding-left:2rem;
+    }
+    
+    .content.align--left .button,
+    .content.align--right .button{
+      text-align:center;
+    }
+
+    .content.align--right{
+      text-align:right;
+      align-items:flex-end;
+      padding-right:2rem;
+    }
+
+
+    
+  </style>
+</head>
+<body class="{{colourScheme}}{{^colourScheme}}light{{/colourScheme}}">
+  <div class="placeholder"></div>
+  <div class="backgroundImage">{{#imageURL}}<img src="{{{imageURL}}}"/>{{/imageURL}}</div>
+  <div class="content align--{{text-alignment}}">
+    {{#heading}}<h1>{{{heading}}}</h1>{{/heading}}
+    {{#paragraph}}<p>{{{paragraph}}}</p>{{/paragraph}}
+    {{#buttonText}}<div class="button">{{{buttonText}}}</div>{{/buttonText}}
+  </div>
+</body>
+</html>
