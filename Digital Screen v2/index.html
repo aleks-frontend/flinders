@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html data-sign="OSZ">
+    <!--
+  {{{FLN_background-image-dsv2}}}
+  {{{grad-colour}}}
+  {{top-grad-height}}
+  {{left-grad-width}}
+  {{bottom-grad-height}}
+  {{{FLN_text-colour-dsv2}}}
+  {{{FLN_logo-dsv2}}}
+  {{{FLN_lecture-series-dsv2}}}
+  {{{FLN_heading-and-copy-dsv2}}}
+  {{{FLN_further-details-dsv2}}}
+  {{{FLN_partner-logo-dsv2}}}
+  -->
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Circular/stylesheet.css');
+      {{{account.snippets.fonts}}}
+
+      :root {
+        --white: #fff;
+        --black: #000; 
+        --gold: #ffd300;
+      }
+
+      .textColour--white {
+        --dynamic-colour: var(--white);
+      }
+
+      .textColour--black {
+        --dynamic-colour: var(--black);
+      }
+
+      html {
+        font-family: 'TheSans B';
+        font-size: 11pt;
+        color: var(--dynamic-colour);
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index:-1;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }
+
+      .fit {
+        display: flex;
+        flex-direction: column;
+        padding: 54pt 750pt 23pt 57pt;
+        border-bottom: 28pt solid var(--gold);
+      }
+
+      .layout--1080x1920 .fit {
+        padding: 100pt 70pt 63pt 66pt;
+        border-bottom: 35pt solid var(--gold);
+      }
+
+      .body {
+        position: relative; 
+        flex: 1;
+        display:flex;
+        flex-direction:column;
+        justify-content: center;
+      }
+      
+      .layout--1080x1920 .body {
+        justify-content: flex-start;
+      }
+
+      .logo {
+        position: relative; 
+        object-fit: contain;
+        object-position: left center;
+      }
+
+      .logo--primary {
+        margin-bottom: 32pt;
+        height: 106pt;
+        width: 602pt;
+      }
+
+      .layout--1080x1920 .logo--primary {
+        margin-bottom: 82pt;
+        height: 127pt;
+        width: 678pt;
+      }
+
+      .logo--partner {
+        height: calc(38.5pt * {{ DS-partner-image-slider-landscape }} {{ ^DS-partner-image-slider-landscape }}2{{ /DS-partner-image-slider-landscape }});
+        width: 649pt;
+      }
+
+      .layout--1080x1920 .logo--partner {
+        height: calc(83pt * {{ DS-partner-image-slider }} {{ ^DS-partner-image-slider }}1{{ /DS-partner-image-slider }});
+        width: 100%;
+        object-position: center;
+      }
+
+      .text {
+        margin-bottom: 25pt;
+        font-size: calc(33.5pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
+        letter-spacing: 0.032em;
+        line-height: 1em;
+        text-transform: uppercase;
+        color: var(--dynamic-colour);
+      }
+
+      .text strong {
+        letter-spacing: 0;
+      }
+
+      .text--divider {
+        margin-bottom: 31pt;
+        height: 4pt;
+        width: 54pt;
+        background-color: var(--gold);
+      }
+      
+      .copy {
+        position: relative;
+        max-height: 330px;
+        color: var(--dynamic-colour);
+      }
+
+      .layout--1080x1920 .copy {
+        max-height: 700pt;
+      }
+
+      .copy h1 {
+        margin-bottom: 7.5pt;
+        font-size: calc(63.9pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
+        text-transform: uppercase;
+        line-height: 0.98em;
+      }
+
+      .layout--1080x1920 .copy h1 {
+        margin-bottom: 14pt;
+        font-size: calc(59pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
+        line-height: 1em;
+      }
+
+      .copy h2 {
+        margin-bottom: 20pt;
+        font-size: calc(33.2pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
+        text-transform: uppercase;
+        line-height: 1.1em;
+      }
+
+      .copy p {
+        margin-bottom: 15pt;
+        font-size: calc(23.9pt * {{ DS-font-slider }} {{^DS-font-slider}}1{{/DS-font-slider}});
+        line-height: 1.1em;
+      }
+
+      .copy h1:last-child,
+      .copy h2:last-child,
+      .copy p:last-child {
+        margin-bottom: 0pt;
+      }
+
+      .footer {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.4rem;
+      }
+
+      .layout--1080x1920 .footer {
+        justify-content: space-between;
+        flex: 1;
+        margin-top: 0.36rem;
+      }
+      
+      .layout--1080x1920 .footer.u-flex-end {
+        justify-content: flex-end;
+      }
+
+      .details {
+        font-size: 31.8pt;
+        line-height: 1.2em;
+        font-weight: bold;
+        color: var(--dynamic-colour);
+      }
+
+      .details + .logo--partner {
+        margin-top: 27.2pt;
+      }
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      
+     
+      /* Gradients */
+
+      .left-grad,
+      .top-grad,
+      .bottom-grad {
+        position:absolute;
+        left:0;
+      }
+
+      .left-grad,
+      .top-grad {
+        top:0;
+      }
+
+      .bottom-grad {
+        bottom:0;
+      }
+
+      .top-grad{
+        height: {{top-grad-height}}%;
+        width:100%;
+        background: linear-gradient(180deg, {{{grad-colour}}}, transparent 100%);
+      }
+
+      .left-grad{
+        height:100%;
+        width: {{left-grad-width}}%; 
+        background: linear-gradient(90deg, {{{grad-colour}}}, transparent 100%);        
+      }
+
+      .bottom-grad{
+        height: {{bottom-grad-height}}%;
+        width:100%;
+        background: linear-gradient(0deg, {{{grad-colour}}}, transparent 100%);
+      }
+      
+      .cricos{ 
+        cursor: crosshair !important;
+        box-sizing: inherit;
+        -webkit-font-smoothing: antialiased;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0pt 32pt 9pt 0;
+        font-family: 'TheSans SemBd B';
+        font-size: 11pt;
+        line-height: 1.2em; 
+        z-index: 2;
+         }
+      
+      .layout--1080x1920 .cricos{
+            line-height: 2em;
+      }
+
+
+    </style>
+  </head>
+  <body style="background: white" 
+        class="layout--{{{FLN_layout--dsv2}}}{{^FLN_layout--dsv2}}{{/FLN_layout--dsv2}}
+               textColour--{{{FLN_text-colour-dsv2}}}{{^FLN_text-colour-dsv2}}white{{/FLN_text-colour-dsv2}}"
+        data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+          
+          <!-- Gradients -->
+          <div class="left-grad"></div>
+          <div class="top-grad"></div>
+          <div class="bottom-grad"></div>      
+          <div class="backgroundImage"><div class="reposition-fix">{{{FLN_background-image-dsv2}}}</div></div> <!--backgroundImage-->
+          <div class="body">
+            {{#FLN_logo-dsv2}}
+            <img class="logo logo--primary" src="{{{FLN_logo-dsv2}}}" /> <!--logo-->
+            {{/FLN_logo-dsv2}}
+            {{#FLN_lecture-series-dsv2}}
+            <div class="text" data-max-line="2">{{{FLN_lecture-series-dsv2}}}</div> <!--text-->
+            <div class="text--divider"></div>
+            {{/FLN_lecture-series-dsv2}}
+            {{#FLN_heading-and-copy-dsv2}}
+            <div class="copy u-heading-patch" data-max-height="css">{{{FLN_heading-and-copy-dsv2}}}</div> <!--copy-->
+            {{/FLN_heading-and-copy-dsv2}}
+            <div class="footer {{^FLN_further-details-dsv2}}u-flex-end{{/FLN_further-details-dsv2}}">
+              {{#FLN_further-details-dsv2}}
+              <div class="details" data-max-line="2">{{{FLN_further-details-dsv2}}}</div> <!--details-->
+              {{/FLN_further-details-dsv2}}
+              {{#FLN_partner-logo-dsv2}}
+              <img class="logo logo--partner" src="{{{FLN_partner-logo-dsv2}}}" /> <!--logo-->
+              {{/FLN_partner-logo-dsv2}}
+            </div> <!--footer-->
+
+          </div> <!--body-->
+        </div><!--container fit-->
+         <div class="cricos">CRICOS No. 00114A</div><!--cricos-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+      {{ #placeholder-toggle-new }}document.body.classList.add("u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}"); {{ /placeholder-toggle-new }}
+      {{ #placeholder-validation }}document.body.classList.add("placeholder__validation--{{placeholder-validation}}"){{ /placeholder-validation }}
+    </script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
