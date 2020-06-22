@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html data-sign="OS?">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      
+      {{{account.snippets.fonts}}}
+
+      html {
+        font-family: "Circular";
+        font-size: 11pt;
+        color: #000;
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+      
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+      
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      
+      .container.fit{
+        display:flex;
+        flex-direction: column;
+      }
+      .wrapper{
+		width:100%;
+       margin-bottom:0.4em;
+		padding:1.2em 1.2em 0em 1.2em;
+      }
+      
+      header{
+        display: flex;
+        justify-content:space-between;
+        margin-bottom: 0.67em;
+      }
+      
+      header .logo{
+        width:3.8em;
+      }
+      
+       .partner-logo{
+        height: inherit;
+        width:auto;
+        max-height: 100px;
+      }
+		 .partner-logo img{
+        max-height: 100px;
+      }
+      
+      .bottom-border{
+        width:100%;
+        height:0.55em;
+        background: #FFD635;
+       	position: absolute;
+        bottom:0;
+      }
+      
+      .bottom-border p{
+        position: absolute;
+        right: 30px;
+        bottom: 18px;
+        font-size: 3.4pt;
+        color: black;
+        font-family: 'Akzidenz Grotesk BE';
+        font-weight: bold;
+      }
+      
+      .cover-image{
+        position:relative;
+        width:100%;
+        height: 40%;
+        overflow: hidden;
+        flex:1;
+      }
+      
+      .cover-image div{
+        position: relative;
+        width:100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .body-content .heading{
+        font-family: 'Akzidenz Grotesk BE Cn';
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 51pt;
+        line-height: 66px !important;
+        word-spacing: 7px;
+        width: 100%;
+        margin-bottom:0.18em;
+      }
+
+      .body-content .heading strong{
+        color:  #FFD635;
+      }
+      
+       .body-content .copy {
+    	margin-bottom:0.41em;
+      }
+      
+      .body-content .copy h2{
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-size: 18pt;
+        font-style: normal;
+        margin-bottom:0.34rem;
+      }
+      
+       .body-content .copy p{
+         font-family: 'Akzidenz Grotesk BE';
+         font-weight: normal;
+         font-style: normal;
+         font-size:9pt;
+         line-height:14px;
+      }
+      
+       .body-content .url {
+         font-family: 'Akzidenz Grotesk BE Cn';
+         font-weight: 500;
+         text-transform: uppercase;
+         font-size: 18pt;
+         line-height: 21px;
+
+      }
+      .body-content .url a{
+        text-decoration: none;
+        color: inherit;
+      }
+      .details-wrapper{
+        padding-top: 0.12em;
+        display:flex;
+        justify-content: space-between;
+        margin-bottom: 0.2em;
+      }
+      .details-wrapper .details{
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-weight: 600;
+        font-size: 24px;
+        line-height: 1.46em;
+        word-spacing: 0.1em;
+      }
+      .contact-wrapper{
+        width:100%;
+      }
+      
+      .contact-wrapper .address{
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-weight: 200;
+        line-height: 1.4em;
+        font-size: 15pt;
+        border-bottom: 2px solid #FFD635;
+        padding-bottom: 0.34em;
+      }
+      
+      .contact-wrapper .contact-details{
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-weight: 200;
+        font-size: 15pt;
+        padding-top: 0.34em;
+        line-height: 1.4em;
+        margin-bottom: 0.7em;
+      }
+      
+
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+          <div class="wrapper">
+            <header>
+              <div class="logo">
+                <img src="{{FU-logo}}">
+              </div>
+            </header>
+            <div class="body-content">
+              <div class="heading" data-max-line="2">{{{FU-heading}}}</div>
+              
+              <div class="details-wrapper">
+                <div class="details" data-max-line="3">{{{event-details}}}</div>
+                <div class="partner-logo">
+                  <img src="{{FU-partner-logo}}" />
+                </div> 
+              </div>
+              <div class="contact-wrapper">
+                <div class="address" data-max-line="2">{{{address}}}</div>
+                <div class="contact-details" data-max-line="2">{{{contact-details}}}</div> 
+              </div>
+              
+              <div class="url" data-max-line="1"><a href="{{{FU-url}}}">{{{FU-url}}}</a></div>            
+            </div>
+          </div>
+          <div class="cover-image"><div>{{{FU-background-image}}}</div></div>
+          <div class="bottom-border"><p>CRICOS No. 00114A | OF_{{#metadata}}{{export_id}}{{/metadata}}{{^metadata}}XXXXX{{/metadata}}</p></div>
+          
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+      
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+      
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+      
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
