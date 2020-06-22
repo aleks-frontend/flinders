@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <style>
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/din-pro/stylesheet.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/DIN_PRO_ATT4/stylesheet.css");
+
+      /* 
+      {{show-crop}}
+      {{FL_layout--dlf}}
+      {{FL_background-image--dlf}}
+      {{FLN_gradient-colour--dlf}}
+      {{FL_left-gradient-width--pub}}
+      {{FL_logo--dlf}}
+      {{FLN_heading--dlf}}
+      {{FLN_subheading--dlf}}
+      {{FLN_url--dlf}}
+      {{#spreadsheet.recipientDetails}}{{recipient-name}}{{/spreadsheet.recipientDetails}}
+      {{FLN_sub-headline--dlf}}
+      {{FLN_intro-text--dlf}}
+      {{FLN_centre-column-text--dlf}}
+      {{FLN_last-column-text--dlf}}
+      {{FLN_call-to-action--dlf}}
+      {{FLN_disclaimer--dlf}}
+      */
+
+      :root {
+        --white: #fff;
+        --black: {{{account.colors.process-black}}};
+        --50-black: {{{account.colors.50-black}}};
+        --yellow: {{{account.colors.primary-gold}}};
+      }
+
+      html, h1, h2 {
+        font-family: 'DIN Next LT Pro';
+        font-weight: 900;
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }   
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .fit {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fit--front {
+        padding: 44pt;
+      }
+
+      .layout--postcard .fit--back {
+        flex-direction: row;
+      }
+
+      .grad {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+
+      .grad--left {
+        left: 0;
+      }
+
+      .grad--right {
+        right: 0;  
+      }   
+
+      .grad--left {
+        width: {{FL_left-gradient-width--pub}}%;
+        background: linear-gradient(90deg, {{{FLN_gradient-colour--dlf}}} 20%, transparent 100%);
+      }
+
+      .header {
+        position: relative;
+        margin-bottom: 14pt;
+      }
+
+      .logo {
+        width: 153pt;
+        height: 59pt;
+        object-fit: contain;
+      }
+
+      .body {
+        position: relative;
+        margin-bottom: 16pt;
+      }
+
+      .heading {
+        overflow: hidden;
+      }
+
+      .heading h1 {
+        float: left;
+        clear: both;
+        margin-bottom: 2.9pt;
+        padding: 8.7pt 5.5pt 0.4pt 4pt;
+        font-size: 40.3pt;
+        line-height: 0.7em;
+        letter-spacing: -0.4pt;
+        text-transform: uppercase;
+        background: var(--yellow);
+      }
+
+      .subheading {
+        display: inline-block;
+        font-size: 14.3pt;
+        line-height: 0.75em;
+        text-transform: uppercase;
+        color: var(--black);
+      }
+
+      .subheading--primary {
+        float: left;
+        clear: both;
+        padding: 5.9pt 3.3pt 3pt;
+        background: var(--white);
+      }
+
+      .subheading--secondary {
+        margin-bottom: 9pt;
+        font-size: 18.47pt;
+        line-height: 1.15em;
+      }
+
+      .subheading--secondary strong {
+        color: var(--yellow);
+        font-weight: 900;
+      }
+
+      .layout--postcard .subheading--secondary {
+        margin-bottom: 1pt;
+        font-size: 13.7pt;
+      }
+
+      .footer {
+        position: relative;
+      }
+
+      .url {
+        font-size: 15pt;
+        line-height: 0.9em;
+        text-transform: uppercase;
+        letter-spacing: -0.3pt;
+        color: var(--white);
+      }
+
+      .section--left {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .section--right{
+        position: relative;
+        width: 255pt;
+        margin: 28pt 0pt;
+        border-left: 1pt solid var(--yellow);
+      }
+
+      .layout--flyer .section--right {
+        display: none;
+      }
+
+      .content--top {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 18pt 44pt 5pt 44pt;
+      }
+
+      .layout--postcard .content--top {
+        padding: 27.8pt 12pt 5pt 33pt;
+        font-size: 0;
+      }
+
+      .content--bottom {
+        padding-bottom: 23pt;
+      }
+
+      .layout--postcard .content--bottom {
+        padding: 0 10pt 26pt 32.5pt;
+      }
+
+      .copy--recipient {
+        margin-bottom: 5pt;
+        font-size: 8pt;
+        line-height: 1.2em;
+        font-weight: normal;
+      }
+
+      .layout--flyer .copy--recipient {
+        display: none;
+      }
+
+      .content__item {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .content__item--primary { align-items: flex-end; padding: 0 43pt; }
+
+      .content__item--secondary { margin-top: 11pt; height: 20pt;}
+
+      .layout--postcard .content__item--secondary { height: auto; }      
+
+      .layout--postcard .content__item--primary { padding: 0; margin-bottom: 3pt; }
+
+      .layout--postcard .content__item--secondary { margin-top: 0; }
+
+      .grid__container {
+        flex: 1;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 9pt;
+      }
+
+      .layout--postcard .grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 9pt 16pt;
+      }
+
+      .copy {
+        font-weight: 400;
+      }
+
+      .copy p {
+        margin-bottom: 5.6pt;
+        font-size: 8.2pt;
+        font-weight: 400;
+        line-height: 1.2em;
+      }
+
+      .layout--postcard .copy p,
+      .layout--postcard .copy ul {
+        margin-bottom: 3.6pt;
+      }
+
+      .copy li {
+        position: relative;
+        margin-bottom: 1.4pt;
+        padding-left: 7pt;     
+        font-size: 8.2pt;
+        line-height: 1.2em;
+      }
+
+      .copy li:before {
+        content: "\2022";
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .layout--postcard .copy--primary {
+        grid-column: span 2;
+      }
+
+      .copy--primary p {
+        font-weight: 500;
+      }
+
+      .mark {
+        position: absolute;
+        top: 0pt;
+        right: 35pt;
+        display: flex;
+        align-items: center;
+        width: 67pt;
+        height: 52pt;
+        padding: 3pt 7pt 0pt;
+        border: 1pt dotted var(--black);
+      }
+
+      .mark__text {
+        font-size: 9.2pt;
+        font-weight: bold;
+        line-height: 1.25em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+
+      .text {
+        position: absolute;
+        bottom: 242pt;
+        font-size: 5.1pt;
+        line-height: 1.2em;
+        right: 100%;
+        transform: rotate(-90deg) translateY(9.2pt);
+        transform-origin: right bottom;
+        white-space: nowrap;
+        font-weight: 500;
+        letter-spacing: 0.2pt;
+        color: var(--50-black);
+      }
+
+      .layout--flyer .text {
+        display: none;
+      }
+
+      .cta {
+        font-size: 13.75pt;
+        line-height: 1.2em;
+        text-transform: uppercase;
+      }
+
+      .layout--postcard .cta {
+        flex: 1;
+        font-size: 12.1pt;
+        line-height: 1.1em;
+      }
+
+      .slogan {    align-self: flex-end;
+        flex-shrink: 0;
+        margin-bottom: 4pt;
+        padding: 3pt 3pt 0pt;    
+        font-size: 17.5pt;
+        line-height: 0.75em;
+        text-transform: uppercase;
+        background: var(--yellow);
+      }
+
+      .layout--postcard .slogan {
+        margin-bottom: 3.6pt;
+        font-size: 13.4pt;
+        line-height: 0.75em;
+        letter-spacing: 0.2pt;   
+      }
+
+      .disclaimer {
+        margin-right: 10pt;
+        max-width: 200pt;
+        font-size: 5.3pt;
+        font-style: italic;
+        line-height: 1.2em;
+        letter-spacing: 0.2pt;
+        color: var(--50-black);
+      }
+
+      .layout--flyer .disclaimer {
+        display: none;
+      }
+
+      .cricos {
+        width: 100%;
+        padding: 4pt 26pt;
+        font-size: 4.1pt;
+        font-weight: 500;
+        line-height: 1.2em;
+        text-align: right;
+        background: var(--yellow);
+        color: var(--50-black); 
+      }
+
+      .layout--postcard .cricos {
+        width: 105pt;
+        margin: 0;
+        padding: 0;    
+        font-size: 5pt;
+        background: none;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" data-crop="{{show-crop}}">
+    {{#spreadsheet.recipientDetails}}
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit fit--front">
+
+          <div class="backgroundImage">
+            <div class="reposition-fix">{{{FL_background-image--dlf}}}</div><!--reposition-fix-->
+            <div class="grad grad--left"></div><!--grad--left-->
+          </div><!--backgroundImage-->
+          <div class="header">
+            {{#FL_logo--dlf}}
+            <img class="logo" src="{{{FL_logo--dlf}}}">
+            {{/FL_logo--dlf}}
+          </div><!--header-->
+          <div class="body">
+            <div class="heading u-heading-patch" data-max-height="130">{{{FLN_heading--dlf}}}</div><!--heading-->
+            {{#FLN_subheading--dlf}}
+            <div class="subheading subheading--primary" data-max-height="34">{{{FLN_subheading--dlf}}}</div><!--subheading-->
+            {{/FLN_subheading--dlf}}
+          </div><!--body-->
+          <div class="footer">
+            <div class="url" data-max-line="2">flinders.edu.au/<br>{{{FLN_url--dlf}}}</div><!--url-->
+          </div><!--footer-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <div class="page layout--{{{FL_layout--dlf}}}{{^FL_layout--dlf}}flyer{{/FL_layout--dlf}}">
+
+      <div class="bleed">
+
+        <div class="container fit fit--back">
+
+          <div class="section section--left">
+            <div class="content content--top">
+              {{#recipient-name}}<div class="copy copy--recipient" data-max-line="1">Dear {{{recipient-name}}}</div><!--copy-->{{/recipient-name}}
+              <div class="subheading subheading--secondary" data-max-line="3">{{{FLN_sub-headline--dlf}}}</div><!--subheading-->
+              <div class="grid__container">
+                <div class="grid" data-max-height="dynamic">
+                  <div class="copy copy--primary">{{{FLN_intro-text--dlf}}}</div><!--copy-->
+                  <div class="copy copy--secondary">{{{FLN_centre-column-text--dlf}}}</div><!--copy-->
+                  <div class="copy copy--tertiary">{{{FLN_last-column-text--dlf}}}</div><!--copy-->
+                </div><!--grid-->
+              </div><!--grid__container-->
+            </div><!--content-->
+            <div class="content content--bottom">
+              <div class="content__item content__item--primary">
+                <div class="cta" data-max-line="2">{{{FLN_call-to-action--dlf}}}</div><!--cta-->
+                <div class="slogan">future ready</div><!--slogan-->
+              </div><!--content__item-->    
+              <div class="content__item content__item--secondary">
+                {{#FLN_disclaimer--dlf}}            
+                <div class="disclaimer">
+                  <div class="textFit" style="line-height: 1.2em;">
+                    {{{FLN_disclaimer--dlf}}}
+                  </div><!--textFit-->
+                </div><!--disclaimer data-max-line="1"-->         
+                {{/FLN_disclaimer--dlf}}       
+                <div class="cricos">CRICOS No. 00114A | {{#metadata}}OUT_{{export_id}}{{/metadata}}{{^metadata}}EXPORT ID WILL GO HERE{{/metadata}}</div><!--text--> 
+              </div><!--content__item-->      
+            </div><!--content--bottom-->
+          </div><!--section-->
+          <div class="section section--right">
+            <div class="mark">
+              <div class="mark__text">postage paid australia</div><!--mark__text-->
+            </div><!--mark-->
+            <div class="text">If underlivered please return to: GPO Box 2100, Adelaide SA 5001</div><!--text-->
+          </div><!--section-->
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+	{{/spreadsheet.recipientDetails}}
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      console.clear();
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+          multiHeadingPatch();
+        });
+      });
+
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      function multiHeadingPatch() {
+        const headings = document.querySelectorAll('h1');
+        headings.forEach(heading => {
+          if ( heading.innerHTML === '&nbsp;' ) {
+            heading.style.display = 'none'
+          }
+        })
+      }      
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
