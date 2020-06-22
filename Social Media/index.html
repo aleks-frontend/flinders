@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Circular/stylesheet.css');
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/Akzidenz/stylesheet.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/Amsi/stylesheet.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/Akzidenz%20Grotesk/stylesheet-cond.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/TheSans/stylesheet.css");
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/din-pro/stylesheet.css");
+
+      /*
+      {{show-crop}}
+      {{FLN_layout--sb}}
+      {{FLN_theme--sb}}
+      {{grad-colour}}
+      {{left-grad-width}}
+      {{top-grad-height}}
+      {{bottom-grad-height}}
+      {{FLN_backgroundImage--sb}}
+      {{FLN_logo--sb}}
+      {{FLN_headline--sb}}
+      {{FLN_sub-heading--sb}}
+      */
+
+      :root {
+        --white: #fff;
+        --black: #000;
+        --yellow: #ffd300;
+      }
+
+      html {
+        font-family: 'Akzidenz Grotesk BE Cn';
+        color: #000;
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .fit {
+        display: flex;
+        flex-direction: column;
+        padding: 156pt 800pt 110pt 97pt;
+      }
+
+      .theme--2 .fit {
+        padding: 138pt 800pt 110pt 110pt;
+      }
+
+      .layout--facebook-event .fit {
+        padding: 156pt 780pt 110pt 108pt;
+      }
+
+      .layout--facebook-event.theme--2 .fit {
+        padding: 138pt 780pt 70pt 110pt;
+      }
+
+      .layout--twitter .fit {
+        padding: 74pt 370pt 34pt 50pt;
+      }
+
+      .layout--facebook-tiles .fit {
+        padding: 74pt 380pt 40pt 77pt;
+      }
+      .layout--facebook-tiles.theme--2 .fit {
+        padding-top: 50pt;
+      }
+
+      .layout--linkedin .fit {
+        padding: 20pt 600pt 19pt 38pt;
+      }
+
+      .header {
+        position: relative;
+        margin-bottom: 95pt;
+      }
+
+      .theme--2 .header {
+        margin-bottom: 83pt;
+      }
+
+      .layout--twitter .header {
+        margin-bottom: 45pt;
+      }
+
+      .layout--facebook-event .header {
+        margin-bottom: 93pt;
+      }
+
+      .layout--facebook-event.theme--2 .header {
+        margin-bottom: 82pt;
+      }
+
+      .layout--facebook-tiles .header {
+        margin-bottom: 57pt;
+      }
+
+      .layout--facebook-tiles.theme--2 .header {
+        margin-bottom: 29pt;
+      }
+
+      .layout--linkedin .header {
+        margin-bottom: 10pt;
+      }
+
+      .logo {
+        height: 116pt;
+        object-fit: contain;
+        object-position: left;
+      }
+
+      .layout--twitter .logo {
+        height: 59pt;
+      }
+
+      .layout--facebook-tiles .logo {
+        height: 70pt;
+      }
+
+      .layout--linkedin .logo {
+        height: 39pt;
+      }
+
+      .body {
+        position: relative;
+      }
+
+      .heading {
+        max-height: 230px;
+        margin-bottom: 15pt;
+        font-size: 77pt;
+        line-height: 0.95em;
+        text-transform: uppercase;
+        letter-spacing: -0.2pt;
+        color: var(--white);
+      }
+
+      .theme--2 .heading {
+        margin-bottom: 25pt;
+        max-height: 348px;
+        font-family: 'DinPro';
+        font-size: 59.2pt;
+        font-weight: 900;
+        line-height: 1em;
+        letter-spacing: 1.4pt;
+        color: var(--yellow);
+      }
+
+      .layout--twitter .heading {
+        max-height: 107px;
+        margin-bottom: 8pt;
+        font-size: 38pt;
+        line-height: 0.9em;
+        letter-spacing: 0.1pt;
+      }
+
+      .layout--twitter.theme--2 .heading {
+        max-height: 153px;
+        font-size: 27pt;
+        line-height: 0.95em;
+      }
+
+      .layout--facebook-tiles .heading {
+        max-height: 140px;
+        margin-bottom: 9pt;
+        font-size: 47pt;
+      }
+
+      .layout--facebook-tiles.theme--2 .heading {
+        max-height: 208px;
+        margin-bottom: 13pt;
+        font-size: 34.5pt;
+        letter-spacing: 0.5pt;
+      }
+
+      .layout--linkedin .heading {
+        max-height: 68px;
+        margin-bottom: 3pt;
+        font-size: 24pt;
+      }
+
+      .layout--linkedin.theme--2 .heading {
+        max-height: 95px;
+        font-size: 16pt;
+      }
+
+      .layout--facebook-event.theme--2 .heading {
+        max-height: 230px;
+      }
+
+      .subheading {
+        max-height: 236px;
+      }
+
+      .theme--2 .subheading {
+        max-height: 171px;
+      }
+
+      .layout--twitter .subheading {
+        max-height: 115px;
+      }
+
+      .layout--twitter.theme--2 .subheading {
+        max-height: 81px;
+      }
+
+      .layout--facebook-tiles .subheading {
+        max-height: 154px;
+      }
+
+      .layout--facebook-tiles.theme--2 .subheading {
+        max-height: 103px;
+      }
+
+      .layout--linkedin .subheading {
+        max-height: 82px;
+      }
+
+      .layout--linkedin.theme--2 .subheading {
+        max-height: 67px;
+      }
+
+      .subheading h2 {
+        margin-bottom: 28pt;
+        font-size: 47.9pt;
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        line-height: 0.9em;
+        color: var(--white);
+      }
+
+      .theme--2 .subheading h2 {
+        margin-bottom: 15pt;
+        font-family: 'DinPro';
+        font-size: 32pt;
+        font-weight: 500;
+        line-height: 1.2em;
+        letter-spacing: 0.5pt;
+      }
+
+      .layout--twitter.theme--2 .subheading h2 {
+        font-size: 16pt;
+        line-height: 1.1em;
+      }
+
+      .layout--twitter .subheading h2 {
+        font-size: 22.7pt;
+      }
+
+      .layout--facebook-tiles .subheading h2 {
+        margin-bottom: 16pt;
+        font-size: 27.6pt;
+        line-height: 0.95em;
+        letter-spacing: 0.3pt;
+      }
+
+      .layout--facebook-tiles.theme--2 .subheading h2 {
+        font-size: 19pt;
+      }
+
+      .layout--linkedin .subheading h2 {
+        margin-bottom: 8pt;
+        font-size: 16pt;
+      }
+
+      .layout--linkedin.theme--2 .subheading h2 {
+        font-size: 12pt;
+      } 
+
+      .subheading h3 {
+        margin-bottom: 10pt;
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-size: 31.9pt;
+        line-height: 0.95em;
+        color: var(--white);
+      }
+
+      .layout--twitter .subheading h3 {
+        font-size: 15.1pt;
+      }
+
+      .layout--twitter.theme--2 .subheading h3 {
+        font-size: 12pt;
+      }
+
+      .subheading h2:last-child,
+      .subheading h3:last-child {
+        margin-bottom: 0;
+      }
+
+      .theme--2 .subheading h3 {
+        margin-bottom: 10pt;
+        font-family: 'DinPro';
+        font-size: 25.2pt;
+        font-weight: 500;
+        line-height: 1.2em;
+        letter-spacing: 0.5pt;
+      }
+
+      .layout--facebook-tiles .subheading h3 {
+        margin-bottom: 10pt;
+        font-size: 19.3pt;
+      }
+
+      .layout--facebook-tiles.theme--2 .subheading h3 {
+        font-size: 14pt;
+      }
+
+      .layout--facebook-tiles .subheading h2:last-child, 
+      .layout--facebook-tiles .subheading h3:last-child,
+      .layout--linkedin .subheading h2:last-child,
+      .layout--linkedin .subheading h3:last-child {
+        margin-bottom: 0;
+      }
+
+      .layout--linkedin .subheading h3 {
+        margin-bottom: 5pt;
+        font-size: 12pt;
+      }
+
+      .layout--linkedin.theme--2 .subheading h3 {
+        font-size: 10pt;
+      }
+
+      .textDivider {
+        margin-bottom: 31pt;
+        height: 3pt;
+        width: 70pt;
+        background-color: var(--yellow);
+      }
+
+      .theme--2 .textDivider {
+        display: none;
+      }
+
+      .layout--twitter .textDivider {
+        margin-bottom: 15pt;
+        width: 33pt;
+        height: 2pt;
+      }
+
+      .layout--facebook-tiles .textDivider {
+        width: 41pt;
+        height: 2pt;
+        margin-bottom: 19.6pt;
+      }
+
+      .layout--linkedin .textDivider {
+        width: 26pt;
+        height: 1.5pt;
+        margin-bottom: 10pt;
+      }
+
+      .cricos {
+        position: absolute;
+        bottom: 22pt;
+        left: 100%;
+        transform: rotate(-90deg) translateY(-14pt);
+        transform-origin: left bottom;
+        white-space: nowrap;
+        font-size: 8.2pt;
+        line-height: 1.2em;
+        color: var(--white);
+      }
+
+      /* Gradients */
+
+      .left-grad,
+      .top-grad,
+      .bottom-grad {
+        position:absolute;
+        left:0;
+      }
+
+      .left-grad,
+      .top-grad {
+        top:0;
+      }
+
+      .bottom-grad {
+        bottom:0;
+      }
+
+      .top-grad{
+        height: {{top-grad-height}}%;
+        width:100%;
+        background: linear-gradient(180deg, {{{grad-colour}}}, transparent 100%);
+      }
+
+      .left-grad{
+        height:100%;
+        width: {{left-grad-width}}%; 
+        background: linear-gradient(90deg, {{{grad-colour}}}, transparent 100%);        
+      }
+
+      .bottom-grad{
+        height: {{bottom-grad-height}}%;
+        width:100%;
+        background: linear-gradient(0deg, {{{grad-colour}}}, transparent 100%);
+      }
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" data-crop="{{show-crop}}">
+    <div class="page theme--{{{FLN_theme--sb}}}{{^FLN_theme--sb}}1{{/FLN_theme--sb}}
+                layout--{{{FLN_layout--sb}}}{{^FLN_layout--sb}}eventbrite{{/FLN_layout--sb}}">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="left-grad"></div>
+          <div class="top-grad"></div>
+          <div class="bottom-grad"></div>
+          <div class="backgroundImage"><div class="reposition-fix">{{{FLN_backgroundImage--sb}}}</div></div><!--backgroundImage-->
+          <div class="header">
+            {{#FLN_logo--sb}}
+            <img class="logo" src="{{{FLN_logo--sb}}}">
+            {{/FLN_logo--sb}}
+          </div><!--header-->
+          <div class="body">
+            <div class="heading" data-max-height="css">{{{FLN_headline--sb}}}</div><!--heading-->      
+            {{#FLN_sub-heading--sb}}            
+            <div class="subheading u-heading-patch" data-max-height="css">
+              <div class="textDivider"></div><!--textDivider-->
+              {{{FLN_sub-heading--sb}}}           
+            </div><!--subheading-->
+            {{/FLN_sub-heading--sb}}   
+          </div><!--body-->
+          <div class="cricos">CRICOS No. 00114A</div><!--cricos-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      console.clear();
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
