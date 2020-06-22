@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html data-sign="OS?">
+
+<head>
+  <title>Outfit</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="./css/minireset.css">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+  <style>
+    {{{account.snippets.fonts}}}
+    
+    /* Input order
+    -- {{show-crop}}
+    -- {{logo}}
+    -- {{page-numbers}}
+    -- {{document-title}}
+    -- {{#collection.MP--front-page}}{{/collection.MP--front-page}}
+    -- {{#collection.MP--internal-pages}}{{/collection.MP--internal-pages}}
+    -- {{show-footer-colour-bar}}
+    -- {{heading-font}}
+    -- {{paragraph-font}}
+    -- End of Input order */
+
+    :root{
+      --exercise: #3EBDAC;
+      --hearing: #F47B34;
+      --nutrition: #85C441;
+      --occupational-therapy: #ED037C;
+      --physiotherapy: #FFC20E;
+      --speech-pathology: #705992;
+      --vision: #00AEEF;
+      --custom-color: #1F5B9A;
+      
+      --yellow: #FFC20E;
+      --light-yellow: #ffe899;            
+      --grey: #808080;
+      --light-grey: #e6e7e8;
+      
+      --black: #000000;
+      --white: #ffffff;
+    }
+    
+    .coloring-white {
+      --primary-color: var(--white);
+      --alt-color: var(--black);
+    }
+    
+    .coloring-black {
+      --primary-color: var(--black);
+      --alt-color: var(--white);
+    }
+    
+    .positioning-left {
+      align-self: flex-start;
+    }
+    
+    .positioning-center {
+      align-self: center;
+      text-align: center;
+    }
+    
+    .positioning-right {
+      align-self: flex-end;
+      text-align: right;
+    }  
+    
+    .flex-inherit {
+      display: flex;
+      flex-direction: inherit;
+      justify-content: inherit;
+      align-items: inherit;
+      align-content: inherit;
+      flex-flow: inherit;
+    }
+
+    body {
+      font-family: "Akzidenz Grotesk BE";
+      font-size: 1rem;
+      color: var(--black);
+      word-break: break-word;
+    }
+    
+    h1, h2, h3 {
+      font-family: '{{{heading-font}}}{{^heading-font}}Akzidenz Grotesk BE Cn{{/heading-font}}';      
+    }
+    
+    p, ol, ul {
+      font-family: '{{{paragraph-font}}}{{^paragraph-font}}Akzidenz Grotesk BE{{/paragraph-font}}';
+      font-weight: normal;
+    }
+    
+    a {
+      text-decoration: underline;
+      color: inherit !important;
+      cursor: pointer;
+    }
+
+    .backgroundImage {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+    }
+
+    .backgroundImage div {
+      width: auto !important;
+      height: auto !important;
+      right: 0;
+      bottom: 0;
+    }
+
+    /* Helper classes */
+    .u-hide {
+      display: none;
+    }
+
+    /* Helper class for fixing Reposition tool bug */
+    .reposition-fix {
+      position: relative;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .backgroundImage.reposition-fix {
+      position: absolute;
+    }
+
+    .reposition-fix .inner {
+      position: absolute;
+      top: 0 !important;
+      bottom: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+
+    .container {
+      padding: calc(3mm + 0.82rem) calc(3mm + 0.98rem) calc(3mm + 0.4rem);
+      display: grid;
+      grid-template-rows: 0 1fr 1.14rem;
+    }
+    
+    /* Front Page Header */
+    .page-front .container {
+      grid-template-rows: 3rem 1fr 1.14rem;
+    }
+    
+    header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+    }
+    
+    .logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    
+    .logo img {
+      width: 4.2rem;
+      height: auto;
+    }
+    
+    .document-title {
+      width: 50%;
+      flex: 0 0 50%;      
+      text-align: right;
+      font-size: 0.4rem;
+      font-weight: bold;
+      line-height: 1.2;      
+    }
+    
+    .content-front.content-text-based .feature-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;      
+    }
+    
+    .content-front.content-hero-image .feature-image {
+      margin-top: 1rem;
+      position: relative;
+    }
+    
+    .content-front.content-hero-image .feature-image .bar {
+      height: 0.288rem;
+      width: 80%;
+      background-color: var(--physiotherapy);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .content.content-front.content-absolute-image h1 {
+      font-size: 1.166rem;
+      font-weight: 500;
+      text-transform: uppercase;      
+    }
+    
+    .content.content-front.content-absolute-image h1:not(:last-child) {
+      margin-bottom: 0.18em;
+    }
+    
+    .content.content-front.content-absolute-image h2 {
+      font-size: 0.42rem;
+      font-weight: normal;
+    }
+    
+    .content.content-front.content-absolute-image h2:not(:last-child) {
+      margin-bottom: 0.8em;
+    }
+    
+    .pre-heading-line {
+      height: 0.1225rem;
+      background: var(--yellow);
+      width: 10%;
+      margin-bottom: 0.2rem;
+    }
+    
+    .pre-heading {      
+      font-size: 0.72rem;      
+      line-height: 1;
+      text-transform: uppercase;
+      width: 95%;
+      margin-bottom: 0.2rem;
+    }
+    
+    .absolute-featured-image {
+      position: relative;
+      height: 100%;      
+      margin-left: calc(-3mm - 0.98rem);
+      margin-right: calc(-3mm - 0.98rem);
+    }
+    
+	.content.content-front h1 {
+      font-size: 0.835rem;
+      font-weight: normal;
+      line-height: 1;
+    }
+    
+    .content.content-front h1:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
+    
+    .content.content-front h2 {
+      font-size: 0.69rem;
+      font-weight: normal;
+      line-height: 1.1;
+    }
+    
+    .content.content-front h2:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
+    
+    .content.content-front h3 {
+      font-size: 0.34572rem;
+      font-weight: normal;
+      line-height: 1.2;
+    }
+    
+    .content.content-front h3:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
+    
+    .content.content-front.alt-yellow {
+      --alt-color: var(--yellow);
+    }
+    
+    .content.content-front.alt-grey {
+      --alt-color: var(--grey);
+    }
+    
+    .content.content-front h1 strong,
+    .content.content-front h2 strong,
+    .content.content-front h3 strong {
+      color: var(--alt-color);
+    }
+    /* End of Front Page Header*/
+    
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      position: relative;
+    }
+    
+    main.hero-bottom {
+      flex-direction: column-reverse;
+      justify-content: flex-end;
+    }
+    
+    main.hero-bottom .hero-image {
+      margin: 0.75rem 0 0;
+    }
+    
+	.content {      
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      position: relative;
+    }
+    
+    .content h1 {
+      font-size: 0.6rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+    
+    .content h1:not(:last-child) {
+      margin-bottom: 0.4rem;
+    }
+    
+    .content h2 {
+      font-size: 0.5rem;
+      font-weight: 500;
+      line-height: 1.1;
+    }
+    
+    .content h2:not(:last-child) {
+      margin-bottom: 0.4rem;
+    }
+    
+    .content h3 {
+      font-size: 0.4rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    
+    .content h3:not(:last-child) {
+      margin-bottom: 0.4rem;
+    }
+    
+    .content,
+    .content p,
+    .content ul,
+    .content ol {
+      font-size: calc(0.285rem * {{{paragraph-font-slider}}}{{^paragraph-font-slider}}1{{/paragraph-font-slider}});
+      font-weight: normal;
+      line-height: 1.2;
+    }
+    
+    .content ul,
+    .content ol {
+      list-style: disc;
+      padding-left: 1em;
+    }
+    
+    .content ol {
+      list-style: decimal;
+      padding-left: 1em;
+    }
+    
+    .content p:not(:last-child),
+    .content ul:not(:last-child),
+    .content ol:not(:last-child) {
+      margin-bottom: 1.2em;
+    }
+    
+    .image {
+      position: relative;
+      width: 100%;
+    }
+    
+    .image-caption p {
+      font-weight: bold;
+    }
+    
+    .image-caption {
+      margin-top: 1.2em;
+    }
+    
+    .columns {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+    }
+    
+    .column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin-right: 0.3rem;
+      position: relative;
+    }
+
+    .column:last-child {
+      margin-right: 0rem;
+    }
+    
+    main.dual-larger-column-1 .column:nth-child(2):last-child {
+      flex: 0.5;
+    }
+    
+    main.dual-larger-column-2 .column:nth-child(2):last-child {
+      flex: 2;
+    }
+    
+    .hero-image {
+      position: relative;
+      width: 100%;
+      margin: 0 0 0.75rem;
+    }
+    
+    .page-heading {
+      margin-bottom: 1.2em;
+      font-size: 0.5rem;      
+      max-height: 10em;      
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .heading-item{
+      flex: 1;
+    }
+    
+    .page-heading h1 {
+      font-size: 1.2rem;
+      font-weight: normal;
+      line-height: 1;      
+      text-transform: uppercase;
+    }
+    
+    .page-heading h1:not(:last-child) {
+      margin-bottom: 0.15em;
+    }
+    
+    .page-heading h2 {
+      font-size: 0.5rem;
+      font-weight: normal;
+      line-height: 1.2;
+    }
+    
+    .page-heading h2:not(:last-child) {
+      margin-bottom: 1.2em;
+    }
+    
+    /* Table */
+    .table.table-color-yellow {
+      --table-color: var(--physiotherapy);
+      --table-text-color: var(--black);
+    }
+    
+    .table.table-color-light-yellow {
+      --table-color: var(--light-yellow);
+      --table-text-color: var(--black);
+    }
+    
+    .table.table-color-grey {
+      --table-color: var(--grey);
+      --table-text-color: var(--white);
+    }
+    
+    .table.table-color-light-grey {
+      --table-color: var(--light-grey);
+      --table-text-color: var(--black);
+    }
+    
+    .table.table-color-none .table-column {
+      border: none !important;
+      padding-left: 0 !important;
+      padding-right: 0.3rem !important;
+    }
+    
+    .table.table-color-none .table-column:last-child {
+      padding-right: 0 !important;
+    }
+    
+    .table p {}
+    
+    .table .row {
+      display: flex;
+    }
+
+    .table-column {
+      flex: 1;
+      border-top: 0.03rem solid var(--table-color);
+      border-left: 0.03rem solid var(--table-color);
+      padding: 0.08rem;
+    }
+
+    .row:last-child .table-column {
+      border-bottom: 0.03rem solid var(--table-color);
+    }
+
+    .table-column:last-child {
+      border-right: 0.03rem solid var(--table-color);
+    }
+    
+    .table[data-header*="bolded-text"] .row:first-child p {
+      font-weight: bold;
+    }       
+    
+    .table[data-header*="header-background"] .row:first-child {
+      color: var(--table-text-color);
+    }
+    
+    .table[data-header*="header-background"] .row:first-child .table-column {
+      background-color: var(--table-color);
+    }
+    /* End of Table*/
+    
+    /* Spacer */
+    .spacer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+    }
+    
+    .spacer-line {
+      background-color: var(--physiotherapy);
+    }
+    /* End of Spacer */
+    
+    /* Full Image Page */
+    .gradient {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 50%;
+    }
+    
+    .gradient-top {
+      top: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 1), transparent 100%);
+    }
+    
+    .gradient-bottom {
+      bottom: 0;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 1), transparent 100%);
+    }
+    
+    .gradient-left {
+      height: auto;            
+      top: 0;
+      bottom: 0;      
+      right: auto; 
+      background: linear-gradient(90deg, rgba(0, 0, 0, 1), transparent 100%);
+    }
+    
+    .page-full-image .content:first-child:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+    
+    .page-full-image .content:last-child:not(:first-child) .items {
+      height: 100%;
+    }
+    
+    .page-full-image .content:last-child:not(:first-child) .item {
+      margin-top: auto;
+    }
+    
+    /* Quote */
+    .quote h3 {
+      font-family: 'Akzidenz Grotesk BE Cn';
+      font-weight: normal;
+      font-size: 0.46rem;
+      font-style: italic;
+      line-height: 1.2;      
+    }
+    
+    .quote h3:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
+    
+    .quote {
+      width: 35%;
+      padding: 0.2rem 0;
+      color: var(--primary-color);
+      border: solid var(--yellow);
+      border-width: 0.05rem 0;
+    }
+    /* End of Quote */
+    
+    /*Callout*/
+    .callout {
+      width: 100%;
+      height: auto;
+      padding: 0.2rem;
+    }
+    
+    .callout.outline{
+      border: 0.03rem solid var(--yellow);
+    }
+    
+    .callout.shaded{
+      background: var(--light-yellow);
+    }
+    
+    /*header-color-{{header-color}} body-color-{{body-color}} outline-{{outlines}}
+    
+     --yellow: #FFC20E;
+      --light-yellow: #ffe899;            
+      --grey: #808080;
+      --light-grey: #e6e7e8;*/
+
+    /* Headings */
+    .headings h1 {
+      font-family: 'Akzidenz Grotesk BE Cn';
+      font-weight: normal;
+      font-size: 1.2rem;  
+      line-height: 1;      
+    }
+    
+    .headings h1:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
+    
+    .headings h2 {
+      font-family: 'Akzidenz Grotesk BE Cn';
+      font-weight: normal;
+      font-size: 0.85rem;
+      line-height: 1.1;
+    }
+    
+    .headings h2:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
+    
+    .headings h3 {
+      font-weight: normal;
+      font-size: 0.46rem;   
+      line-height: 1.2;   
+    }
+    
+    .headings h3:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
+    
+    .headings {
+      width: 50%;      
+      color: var(--primary-color);
+    }
+    
+    .headings strong {
+      color: var(--yellow);
+    }
+    /* End of Headings */
+    
+    /* Statistic */
+    .statistic h2 {
+      font-family: 'Akzidenz Grotesk BE Cn';
+      font-weight: normal;
+      font-size: 1.44rem;      
+      line-height: 1;
+    }       
+    
+    .statistic h2:not(:last-child) {
+      margin-bottom: 0.2rem;
+    }
+    
+    .statistic h2 sub,    
+    .statistic h2 sup {
+      font-size: 0.4em;
+      vertical-align: super;
+      top: 0;
+    }
+    
+    .statistic h2 sub sub,
+    .statistic h2 sub sup,
+    .statistic h2 sup sup,
+    .statistic h2 sup sub {
+      font-size: 1em;
+    }
+    
+    .statistic p {
+      font-size: 0.36rem;
+      line-height: 1.2;
+    }
+    
+    .statistic p:not(:last-child) {
+      margin-bottom: 1.2em;
+    }
+    
+    .statistic {
+      width: 50%;
+      color: var(--primary-color);
+    }
+    
+    .statistic strong {
+      color: var(--yellow);
+    }
+    /* End of Statistic */    
+    /* End of Full Image Page */
+    
+    footer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0.25rem 0;
+      position: relative;
+    }
+    
+    .paging, 
+    .paging p {
+      font-size: 0.23rem;
+      font-weight: 700;
+      line-height: 1.2;      
+    }
+    
+    .paging strong {
+      color: var(--physiotherapy);
+    }
+    
+    .page-internal {
+      counter-increment: page;
+    }
+    
+    .paging:before {      
+      content: "Page " counter(page) " ";
+    }
+    
+    .page.page-even .paging {
+      margin-left: auto;
+    }
+    
+    .ending {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: calc(3mm + 0.4rem);
+      background: var(--physiotherapy);
+    }
+    
+    [data-ending="hide"] .ending {
+      display: none !important;
+    }       
+    
+    [data-paging="hide"] .paging {
+      display: none !important;
+    }
+    
+    [data-paging="show---right-side"] .paging {
+      margin-left: auto;
+    }
+    
+    .heading-table{
+      
+    }
+    
+    .heading-table .row {
+      display: flex;
+    }
+
+    .heading-table .row .cell {
+      flex: 1;
+      background: var(--light-yellow);
+      padding: 0.2rem;
+      border: 0.04rem solid var(--white);
+    }
+
+    .heading-table .row:first-child .cell{
+      background: var(--yellow);
+    }
+    
+    .heading-item:nth-child(2) {
+      margin-left: 0.2rem;
+    }
+    
+    /*Absolute image front page*/
+    .absolute-image-front-page .container {
+      padding-bottom: 3mm;
+      grid-template-rows: 3rem 1fr 0%;
+    }
+    
+    @media (max-width: 225mm) {
+      .content,
+      .content p,
+      .content ul,
+      .content ol {
+        line-height: 1;
+      }
+
+      .content p:not(:last-child),
+      .content ul:not(:last-child),
+      .content ol:not(:last-child) {
+        margin-bottom: 14px;
+      }
+    }
+    
+    @media (max-width: 163mm) {
+      html {
+        font-size: 32.64px !important;
+      }
+      
+      .content,
+      .content p,
+      .content ul,
+      .content ol {
+        line-height: 1;
+      }
+
+      .content p:not(:last-child),
+      .content ul:not(:last-child),
+      .content ol:not(:last-child) {
+        margin-bottom: 10px;
+      }
+    }
+    
+    .page-heading .heading-table h1{	font-size: 0.8rem;	margin-bottom: 0.15em;}
+    .page-heading .heading-table h2{	font-size: 0.7rem;	margin-bottom: 0.15em;}
+    .page-heading .heading-table h3{	font-size: 0.6rem;	margin-bottom: 0.15em;}
+    .page-heading .heading-table h4{	font-size: 0.5rem; font-family: 'Akzidenz Grotesk BE'; margin-bottom: 0.15em;}
+    
+	.page-heading .heading-table p{	font-size: 0.285rem;	margin-bottom: 0.15em;}
+  </style>
+</head>
+
+<body style="background: white" data-crop="{{show-crop}}" data-ending="{{show-footer-colour-bar}}" data-paging="{{page-numbers}}" data-reduce-export-font-size-by-percent="0" data-reduce-firefox-font-size-by-percent="0" data-prevent-export-overflow="false">            
+  <div class="u-hide">
+    <div id="logo">{{#logo}}<img src="{{{logo}}}" />{{/logo}}</div>
+    <div id="document-title">
+      {{{document-title}}}
+    </div>
+  </div>
+  {{#collection.MP--front-page}}
+  {{#block.text-based-front-page}}
+  <div class="page page-front text-based-front-page">
+
+    <div class="bleed">
+
+      <div class="container fit">                
+        <header>
+          <div class="logo" data-asset="logo"></div>
+          <div class="document-title" data-asset="document-title" data-max-line="2"></div>
+        </header>
+        <main>                    
+          <div class="content content-front content-text-based alt-{{heading-alternate-colour}}{{^heading-alternate-colour}}yellow{{/heading-alternate-colour}}" style="padding: 1rem 1rem 1rem 1.2rem;">
+            <div class="feature-image">
+              <div class="reposition-fix"><div class="inner">{{{feature-image}}}</div></div>
+              <div class="gradient gradient-top" 
+                   style="background: linear-gradient(180deg, {{{gradient-colour}}}{{^gradient-colour}}rgba(0,0,0,0.6){{/gradient-colour}}, transparent 100%); height: {{top-gradient-height}}{{^top-gradient-height}}0{{/top-gradient-height}}%;"></div>
+              <div class="gradient gradient-left" 
+                   style="background: linear-gradient(90deg, {{{gradient-colour}}}{{^gradient-colour}}rgba(0,0,0,0.6){{/gradient-colour}}, transparent 100%); width: {{left-gradient-width}}{{^left-gradient-width}}0{{/left-gradient-width}}%;"></div>
+            </div>
+            <div class="columns">
+              <div class="column">
+                <div class="fit flex-inherit">
+                  <div class="flex-inherit" data-max-height="dynamic">{{{heading}}}</div>
+                </div>
+              </div>
+            </div>
+          </div>                    
+        </main>
+        <footer></footer>
+        <div class="ending"></div>
+      </div>
+      <!--container fit-->
+
+    </div>
+    <!--bleed-->
+
+  </div>
+  <!--page-->
+  {{/block.text-based-front-page}}
+  {{#block.hero-image-front-page}}
+  <div class="page page-front hero-image-front-page">
+
+    <div class="bleed">
+
+      <div class="container fit">
+        <header>
+          <div class="logo" data-asset="logo"></div>
+          <div class="document-title" data-asset="document-title" data-max-line="2"></div>
+        </header>
+        <main>                    
+          <div class="content content-front content-hero-image alt-{{heading-alternate-colour}}{{^heading-alternate-colour}}yellow{{/heading-alternate-colour}}" style="padding: 1rem 0 0;">
+            <div class="columns">
+              <div class="column">
+                <div data-max-height="css" style="max-height: calc((100 - {{{image-height}}}{{^image-height}}50{{/image-height}}) * 0.18rem - 1rem);">
+                  {{{heading}}}
+                </div>
+                <div class="feature-image" style="flex: 0 0 {{{image-height}}}{{^image-height}}50{{/image-height}}%; height: {{{image-height}}}{{^image-height}}50{{/image-height}}%;">
+                  <div class="reposition-fix"><div class="inner">{{{feature-image}}}</div></div>
+                  <div class="bar u-{{feature-image-colour-bar}}{{^feature-image-colour-bar}}show{{/feature-image-colour-bar}}"></div>
+                </div>
+              </div>
+            </div>
+          </div>          
+        </main>
+        <footer></footer>
+        <div class="ending"></div>
+      </div>
+      <!--container fit-->
+
+    </div>
+    <!--bleed-->
+
+  </div>
+  <!--page-->
+  {{/block.hero-image-front-page}}
+  {{#block.absolute-image-front-page}}
+  <div class="page page-front absolute-image-front-page">
+
+    <div class="bleed">
+
+      <div class="container fit" style="grid-template-rows: 3rem 1fr {{{image-height}}}{{^image-height}}50{{/image-height}}%;">
+        <header>
+          <div class="logo" data-asset="logo"></div>
+          <div class="document-title" data-asset="document-title" data-max-line="2"></div>
+        </header>
+        <main>                    
+          <div class="content content-front content-absolute-image alt-{{heading-alternate-colour}}{{^heading-alternate-colour}}yellow{{/heading-alternate-colour}}" style="padding: 1rem 0;">
+            <div class="columns">
+              <div class="column">
+                <div data-max-height="css" style="max-height: calc((100 - {{{image-height}}}{{^image-height}}50{{/image-height}}) * 0.23445rem - 5rem);">
+                  <div class="pre-heading-line"></div>
+                  {{#pre-heading}}<h3 class="pre-heading" data-max-line="1">{{{pre-heading}}}</h3>{{/pre-heading}}
+                  {{{heading}}}
+                </div>                
+              </div>
+            </div>
+          </div>                    
+        </main>
+        <div class="absolute-featured-image">
+          <div class="reposition-fix">{{{feature-image}}}</div>
+        </div>
+        <div class="ending"></div>        
+      </div>
+      <!--container fit-->
+
+    </div>
+    <!--bleed-->
+
+  </div>
+  <!--page-->
+  {{/block.absolute-image-front-page}}
+  {{/collection.MP--front-page}}
+  
+  {{#collection.MP--internal-pages}}
+  {{#block.customisable-page}}
+  <div class="page page-internal page-customisable" data-toc="{{toc-entry}}">
+
+    <div class="bleed">
+
+      <div class="container fit">        
+        <header></header>        
+        <main class="dual-{{dual-columns-layout}}{{^dual-columns-layout}}equal-width{{/dual-columns-layout}} hero-{{hero-image-position}}{{^hero-image-position}}top{{/hero-image-position}}">
+          {{#hero-image}}
+          <div class="hero-image" style="flex: 0 0 {{hero-image-height-percentage}}{{^hero-image-height-percentage}}25{{/hero-image-height-percentage}}%; height: {{hero-image-height-percentage}}{{^hero-image-height-percentage}}25{{/hero-image-height-percentage}}%;">
+            <div class="reposition-fix"><div class="inner">{{{hero-image}}}</div></div>
+          </div>
+          {{/hero-image}}
+          <div class="content">
+            <div class="page-heading" data-max-height="css">
+           		{{#collection.customisable-heading}}
+              		{{#block.heading-text}}
+                      <div class="heading-item heading-text" style="flex: {{{flexible-item-size}}}">
+                        <div style="font-size: calc(1rem * ({{heading-size}}{{^heading-size}}100{{/heading-size}} / 100));">
+                          {{{heading}}}
+                        </div>
+                      </div>
+              		{{/block.heading-text}}
+              		{{#block.heading-table}}
+                      <div class="heading-item heading-table" style="flex: {{{flexible-item-size}}}">
+                        <div class="row">
+                          {{#heading-cell1}}<div class="cell">{{{heading-cell1}}}</div>{{/heading-cell1}}
+                          {{#heading-cell2}}<div class="cell">{{{heading-cell2}}}</div>{{/heading-cell2}}
+                        </div>
+                        <div class="row">
+                          {{#body-cell1}}<div class="cell">{{{body-cell1}}}</div>{{/body-cell1}}
+                          {{#body-cell2}}<div class="cell">{{{body-cell2}}}</div>{{/body-cell2}}
+                        </div>
+                      </div>
+              		{{/block.heading-table}}
+                {{/collection.customisable-heading}}
+            </div>
+            <div class="columns">
+              {{#collection.customisable-content}}            
+              {{#block.column}}
+              <div class="column">
+                <div class="fit flex-inherit">
+                  <div class="flex-inherit" data-max-height="dynamic">
+                    {{#collection.content}}
+                    {{#block.spacer}}
+                    <div class="spacer" style="height: {{{spacer-height}}}{{^spacer-height}}25{{/spacer-height}}px;">
+                      <div class="spacer-line" style="height: {{{divider-thickness}}}{{^divider-thickness}}0{{/divider-thickness}}px;"></div>
+                    </div>
+                    {{/block.spacer}}
+                    {{#block.image}}
+                    <div class="image {{^image}}no-image{{/image}}" style="height: {{{image-height}}}{{^image-height}}5{{/image-height}}rem;">
+                      <div class="reposition-fix"><div class="inner">{{{image}}}</div></div>
+                    </div>
+                    <div class="image-caption" data-max-line="2">
+                      <p>{{{image-caption}}}</p>
+                    </div>
+                    {{/block.image}}
+                    {{#block.text}}
+                    <div class="text" style="font-size: calc(1rem * ({{copy-heading-size}}{{^copy-heading-size}}100{{/copy-heading-size}} / 100));">
+                      {{{text}}}
+                    </div>
+                    {{/block.text}}
+                    {{#block.callout}}
+                    	<div class="callout {{callout-style}}{{^callout-style}}outline{{/callout-style}}">
+                          {{{callout-text}}}
+                    	</div>
+                    {{/block.callout}}
+                    {{#block.table}}
+                    <div class="table table-color-{{table-colour}}{{^table-colour}}yellow{{/table-colour}}" data-header="{{table-header}}">
+                      {{#spreadsheet.table}}
+                      <div class="row">
+                        {{#column-1}}<div class="table-column"><p>{{{column-1}}}</p></div>{{/column-1}}
+                        {{#column-2}}<div class="table-column"><p>{{{column-2}}}</p></div>{{/column-2}}
+                        {{#column-3}}<div class="table-column"><p>{{{column-3}}}</p></div>{{/column-3}}
+                        {{#column-4}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-4}}
+                      </div>
+                      {{/spreadsheet.table}}
+                    </div>
+                    {{/block.table}}
+                    {{/collection.content}}
+                  </div>
+                </div>                
+              </div>
+              {{/block.column}}            
+              {{/collection.customisable-content}}
+            </div>
+          </div>
+        </main>
+        <footer>
+          <div class="paging">
+            <strong>|</strong> <span class="code" data-asset="document-title"></span>
+          </div>
+        </footer>        
+        <div class="ending"></div>
+      </div>
+      <!--container fit-->
+
+    </div>
+    <!--bleed-->
+
+  </div>
+  <!--page-->
+  {{/block.customisable-page}}
+
+  {{#block.toc-page}}
+  <div class="page page-internal page-toc">
+
+    <div class="bleed">
+
+      <div class="container fit">        
+        <header></header>        
+        <main>
+          <div class="content">
+            <div class="columns">
+              {{#collection.customisable-content}}            
+              {{#block.column}}
+              <div class="column">
+                <div class="fit flex-inherit">
+                  <div class="flex-inherit" data-max-height="dynamic">
+                    {{#collection.content}}
+                    {{#block.spacer}}
+                    <div class="spacer" style="height: {{{spacer-height}}}{{^spacer-height}}25{{/spacer-height}}px;">
+                      <div class="spacer-line" style="height: {{{divider-thickness}}}{{^divider-thickness}}0{{/divider-thickness}}px;"></div>
+                    </div>
+                    {{/block.spacer}}
+                    {{#block.image}}
+                    <div class="image {{^image}}no-image{{/image}}" style="height: {{{image-height}}}{{^image-height}}5{{/image-height}}rem;">
+                      <div class="reposition-fix"><div class="inner">{{{image}}}</div></div>
+                    </div>
+                    <div class="image-caption" data-max-line="2">
+                      <p>{{{image-caption}}}</p>
+                    </div>
+                    {{/block.image}}
+                    {{#block.text}}
+                    <div class="text" style="font-size: calc(1rem * ({{copy-heading-size}}{{^copy-heading-size}}100{{/copy-heading-size}} / 100));">
+                      {{{text}}}
+                    </div>
+                    {{/block.text}}
+                    {{#block.table}}
+                    <div class="table table-color-{{table-colour}}{{^table-colour}}yellow{{/table-colour}}" data-header="{{table-header}}">
+                      {{#spreadsheet.table}}
+                      <div class="row">
+                        {{#column-1}}<div class="table-column"><p>{{{column-1}}}</p></div>{{/column-1}}
+                        {{#column-2}}<div class="table-column"><p>{{{column-2}}}</p></div>{{/column-2}}
+                        {{#column-3}}<div class="table-column"><p>{{{column-3}}}</p></div>{{/column-3}}
+                        {{#column-4}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-4}}
+                      </div>
+                      {{/spreadsheet.table}}
+                    </div>
+                    {{/block.table}}
+                    {{#block.toc}}
+                    <div class="table table-color-none table-toc" data-header="[]">
+                      {{#spreadsheet.toc}}
+                      <div class="row">
+                        <div class="table-column"><p><strong>{{{page-name}}}</strong></p></div>
+                        <div class="table-column"><p>{{{page-number}}}</p></div>
+                      </div>
+                      {{/spreadsheet.toc}}
+                      {{^spreadsheet.toc}}
+                      <div class="dynamic-toc"></div>
+                      {{/spreadsheet.toc}}
+                    </div>
+                    {{/block.toc}}
+                    {{/collection.content}}
+                  </div>
+                </div>
+              </div>
+              {{/block.column}}            
+              {{/collection.customisable-content}}
+            </div>
+          </div>
+        </main>
+        <footer>
+          <div class="paging">
+            <strong>|</strong> <span class="code" data-asset="document-title"></span>
+          </div>
+        </footer>        
+        <div class="ending"></div>
+      </div>
+      <!--container fit-->
+
+    </div>
+    <!--bleed-->
+
+  </div>
+  <!--page-->
+  {{/block.toc-page}}
+  
+  {{#block.full-image-page}}
+  <div class="page page-internal page-full-image">
+
+    <div class="bleed">
+
+      <div class="container fit">
+        <div class="backgroundImage reposition-fix"><div class="inner">{{{hero-image}}}</div></div>
+        <div class="gradient gradient-top" 
+             style="background: linear-gradient(180deg, {{{gradient-colour}}}{{^gradient-colour}}rgba(0,0,0,0.6){{/gradient-colour}}, transparent 100%); height: {{top-gradient-height}}{{^top-gradient-height}}0{{/top-gradient-height}}%;"></div>
+        <div class="gradient gradient-bottom" 
+             style="height: {{bottom-gradient-height}}{{^bottom-gradient-height}}0{{/bottom-gradient-height}}%; background: linear-gradient(0deg, {{{gradient-colour}}}{{^gradient-colour}}rgba(0,0,0,0.6){{/gradient-colour}}, transparent 100%);"></div>
+        <header></header>
+        <main>
+          {{#collection.page-content}} 
+          <div class="content">       
+            {{#collection.content-section}} 
+			<div class="columns">
+              <div class="column">
+              	<div class="fit flex-inherit">
+                  <div class="items flex-inherit" data-max-height="dynamic">
+                    {{#block.quote}}
+                    <div class="quote coloring-{{quote-colour}}{{^quote-colour}}white{{/quote-colour}} positioning-{{quote-position}}{{^quote-position}}left{{/quote-position}} item">
+                      {{{quote}}}
+                    </div>
+                    {{/block.quote}}
+                    {{#block.heading}}
+                    <div class="headings coloring-{{heading-colour}}{{^heading-colour}}white{{/heading-colour}} positioning-{{heading-position}}{{^heading-position}}left{{/heading-position}} item">
+                      {{{heading}}}
+                    </div>
+                    {{/block.heading}}
+                    {{#block.statistic}}
+                    <div class="statistic coloring-{{statistic-colour}}{{^statistic-colour}}white{{/statistic-colour}} positioning-{{statistic-position}}{{^statistic-position}}left{{/statistic-position}} item">
+                      {{{statistic}}}
+                    </div>
+                    {{/block.statistic}}
+                  </div>
+                </div>                
+              </div>
+            </div> 
+            {{/collection.content-section}} 
+          </div>
+          {{/collection.page-content}}
+        </main>
+        <footer></footer>
+        <div class="ending"></div>
+      </div>
+      <!--container fit-->
+
+    </div>
+    <!--bleed-->
+
+  </div>
+  <!--page-->
+  {{/block.full-image-page}}                
+
+  {{/collection.MP--internal-pages}}
+  
+  <script>
+    window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+  </script>
+  <script src="js/main.js"></script>
+  <script src="js/prefixfree.js"></script>
+  <script src="js/check-export-mode.js"></script>
+  <script src="js/dynamic-inject.js"></script>
+  <script src="js/char-limit.js"></script>
+  <script src="js/max-line-check.js"></script>
+  <script src="js/max-height-check.js"></script>
+  <script src="js/textfit.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    let dataEls = document.querySelectorAll(".table-column");
+    dataEls.forEach(el => {
+      if(el.innerText == ""){
+        el.remove();
+      } else if(el.innerText == "-"){
+        el.innerText = "";
+      }
+    });
+  </script>
+  <script>
+
+    console.clear();
+
+    // Tracking text changes and firing text restriction functions (mutationObserver)
+    const overflowObserver = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        dynamicDocTitle();
+        maxLineCheck();
+        maxHeightCheck();
+      });
+    });
+
+    const injectObserver = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        injectDynamicContent();
+      });
+    });
+
+    const injectSources = document.querySelectorAll('[data-target-id]');
+
+    overflowObserver.observe(document.body, {
+      attributes: false,
+      characterData: true,
+      childList: true,
+      subtree: true,
+      attributeOldValue: false,
+      characterDataOldValue: true
+    });
+
+    if (injectSources.length > 0) {
+      injectSources.forEach(src => {
+        injectObserver.observe(src, {
+          attributes: false,
+          characterData: true,
+          childList: true,
+          subtree: true,
+          attributeOldValue: false,
+          characterDataOldValue: true
+        });
+      });
+    }
+
+    // Calling text size restriction functions once the fonts are loaded
+    document.fonts.ready.then(() => {
+      dynamicDocTitle();
+      maxLineCheck();
+      maxHeightCheck();
+      injectDynamicContent();      
+    });
+
+    checkCrop();
+    checkExport();
+    dynamicToc();
+
+    // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+    TextFit.fit({
+      selector: '.lockup',
+      alignItems: 'center',
+    });
+    
+    function dynamicDocTitle() {
+      const els = document.querySelectorAll('[data-asset]');
+      
+      els.forEach((el) => {
+        const asset = document.getElementById(el.dataset.asset);
+        
+        if (el.innerHTML !== asset.innerHTML) {
+          el.innerHTML = asset.innerHTML;
+        }
+      });
+    }
+    
+    function dynamicToc() {
+      const pages = document.querySelectorAll('.page-internal');
+      const tocs = document.querySelectorAll(".dynamic-toc");
+      
+      pages.forEach((page, index) => {
+        if (index % 2) {
+          page.classList.add('page-even');
+        } else {
+          page.classList.remove('page-even');
+        }
+      });
+      
+      tocs.forEach((toc) => {
+        let htmls = '';
+        pages.forEach((page, index) => {
+          const entry = page.dataset.toc;
+          if (entry) {
+            const html = `<div class="row">
+                    <div class="table-column"><p><strong>${entry}</strong></p></div>
+                    <div class="table-column"><p>${index + 1}</p></div>
+                  </div>`;
+            htmls = `${htmls}${html}`;
+          }
+        });
+        
+        toc.innerHTML = htmls;
+      });
+    }
+  </script>
+</body>
+
+</html>
