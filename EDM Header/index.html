@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html data-sign="OSR">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Circular/stylesheet.css');
+
+      /*
+      {{show-crop}}
+      {{ placeholder-opacity }}
+      {{ placeholder-image-1 }}
+      {{ placeholder-toggle-new }}
+      {{ placeholder-validation }}
+      {{FLN_background--edh}}
+      {{FLN_text-alignment--edh}}
+      {{FLN_text-colour--edh}}
+      {{FLN_heading--edh}}
+      {{FLN_subheading--edh}}
+      {{{grad-colour}}}
+      {{top-grad-height}}
+      {{left-grad-width}}
+      {{bottom-grad-height}}
+      */
+
+      {{{account.snippets.fonts}}}
+
+      :root {
+        --white: #fff;
+        --process-black: #000; 
+        --primary-gold: #ffd300;
+      }
+
+      html {
+        font-family: 'Akzidenz Grotesk BE Cn';
+        font-size: 11pt;
+        color: var(--white);
+        word-break: break-word;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .fit {
+        display: flex;
+        padding: 29pt 22pt 23pt;
+        justify-content: flex-start;
+      }
+
+      .textAlignment--right .fit {
+        justify-content: flex-end;
+      }
+
+      .textAlignment--centre .fit {
+        justify-content: center;
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .textColour--white .body {
+        color: var(--white);
+      }
+
+      .textColour--black .body {
+        color: var(--process-black);
+      }
+
+      .textAlignment--left .body {
+        text-align: left;
+      }
+
+      .textAlignment--right .body {
+        text-align: right;
+      }
+
+      .textAlignment--centre .body {
+        text-align: center;
+      }
+
+      .heading {
+        position: relative;
+        margin-bottom: 8pt;
+        font-size: 32pt;
+        line-height: 0.95em;
+        font-weight: bold;
+        letter-spacing: 0.7pt;
+        text-transform: uppercase;
+        padding-bottom: 11pt;
+      }
+
+      .heading:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 2pt;
+        width: 100%;
+        height: 2pt;
+        background-color: var(--primary-gold);
+      }
+
+      .subheading {
+        position: relative;
+        font-family: 'Akzidenz-Grotesk Std Cnd';
+        font-size: 25pt;
+        line-height: 1em;
+        font-weight: normal;
+      }
+
+      .textAlignment--centre .subheading {
+        padding: 0 17pt;
+      }
+
+      .u-display-none {
+        display: none;
+      }
+
+     /* Gradients */
+
+      .left-grad,
+      .top-grad,
+      .bottom-grad {
+        position:absolute;
+        left:0;
+      }
+
+      .left-grad,
+      .top-grad {
+        top:0;
+      }
+
+      .bottom-grad {
+        bottom:0;
+      }
+
+      .top-grad{
+        height: {{top-grad-height}}%;
+        width:100%;
+        background: linear-gradient(180deg, {{{grad-colour}}}, transparent 100%);
+      }
+
+      .left-grad{
+        height:100%;
+        width: {{left-grad-width}}%; 
+        background: linear-gradient(90deg, {{{grad-colour}}}, transparent 100%);        
+      }
+
+      .bottom-grad{
+        height: {{bottom-grad-height}}%;
+        width:100%;
+        background: linear-gradient(0deg, {{{grad-colour}}}, transparent 100%);
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" data-crop="{{show-crop}}" class="textAlignment--{{{FLN_text-alignment--edh}}}{{^FLN_text-alignment--edh}}left{{/FLN_text-alignment--edh}}
+                                                                   textColour--{{{FLN_text-colour--edh}}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="left-grad"></div>
+          <div class="top-grad"></div>
+          <div class="bottom-grad"></div>
+          <div class="backgroundImage">
+            <div class="reposition-fix">{{{FLN_background--edh}}}</div><!--reposition-fix-->
+          </div><!--backgroundImage-->
+          <div class="body">
+            {{#FLN_heading--edh}}
+            <div class="heading" data-max-line="2">{{{FLN_heading--edh}}}</div><!--heading-->     
+            {{/FLN_heading--edh}}
+            {{#FLN_subheading--edh}}
+            <div class="subheading" data-max-line="2">{{{FLN_subheading--edh}}}</div><!--subheading-->
+            {{/FLN_subheading--edh}}
+          </div><!--body-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+      {{ #placeholder-toggle-new }}document.body.classList.add("u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}"); {{ /placeholder-toggle-new }}
+      {{ #placeholder-validation }}document.body.classList.add("placeholder__validation--{{placeholder-validation}}"){{ /placeholder-validation }}
+    </script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });      
+
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+
+    </script>
+
+
+  </body>
+</html>
