@@ -9,13 +9,12 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <style>
-
       {{{account.snippets.fonts}}}
 
       html {
         font-family: "Circular";
         font-size: 11pt;
-        color: #000;
+        color: {{{account.colors.process-black}}};
         word-break: break-word;
       }
 
@@ -91,7 +90,7 @@
         bottom:0;
       }
 
-      .bottom-border p{
+      .bottom-border p {
         position: absolute;
         right: 30px;
         bottom: 18px;
@@ -191,7 +190,6 @@
       .page-2 .columns-wrapper{
         width: 100%;
         display: flex;
-        align-items: flex-start;
         margin-bottom: 0.8em;
         flex: 1;
       }
@@ -199,9 +197,8 @@
       .page-2 .column{
         width: 50%;
         position: relative;
-        margin-right:18px;
+        margin-right: 18px;
         flex: 1;
-        max-height: 100%;
       }
 
       .page-2 .column ul{
@@ -255,8 +252,6 @@
         margin-bottom: 0;
       }
 
-
-
       .page-2 .column .col-img{
         position: relative;
         top: 0;
@@ -266,8 +261,8 @@
         bottom: auto;
         margin-bottom: 10px;
       }
-
-
+      
+      .page-2 .column .col-img:last-child { margin-bottom: 0; }
 
       .col-text ~ .col-img {
         margin-top: 10px;
@@ -298,9 +293,47 @@
       .u-hide{
         display:none !important;
       }
-      
+
       .token-value.token-empty { display: none !important; }
+
+      a {
+        color: {{account.colors.process-black}};
+      }
+
+      /*Logo Block Styling*/      
+      .content-logo {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content-logo img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .content-logo-empty {
+        background: grey;
+        width: 100%;
+        height: calc(100% - 20px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Akzidenz Grotesk BE Cn";
+        font-size: 50%;
+        color: white;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+      
+      .hero-image{
+        width: 100%;
+        height: 200px;
+      }
     </style>
+
+
   </head>
   <body style="background: white" data-crop="{{show-crop}}">
     <div class="page page-2">
@@ -318,31 +351,36 @@
 
               {{#FU-heading-h1h2}}<div class="heading u-heading-patch" data-max-line="3">{{{FU-heading-h1h2}}}</div>{{/FU-heading-h1h2}}
               <div class="columns-wrapper">
-
                 {{#collection.columns-2columns}}
                 {{#block.column}}
-                <div class="column" data-max-height="dynamic">
-                  {{#collection.column-content}}
-                  {{#block.text}}
-                  <div class="col-text">{{{col-text}}}</div>
-                  {{/block.text}}
-                  {{#block.image}}
-                  <div class="col-img" style="height:{{img-height-slider}}{{^img-height-slider}}200{{/img-height-slider}}px;"><div class="reposition-fix">{{{col-img}}}{{^col-img}}<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; background: url('https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg') center center / cover no-repeat" class="outfit-resizable-background">
-          <img src="https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg" style="display: none; width: 0; height: 0;">
-        </div>{{/col-img}}</div></div>
-                  {{#col-img-cap}}
-                  <div class="col-img-cap" data-max-line="2"> {{{col-img-cap}}}</div>
-                  {{/col-img-cap}}
-                  {{/block.image}}
-                  {{/collection.column-content}}
-                </div>
+                <div class="column">
+                  <div class="column__inner" data-max-height="dynamic">
+                    {{#collection.column-content}}
+                    {{#block.logo}}
+                    {{^footer-logo}}<div class="content-logo-empty" style="height: {{{logo-height}}}{{^logo-height}}100{{/logo-height}}px">Add Logo Here</div>{{/footer-logo}}
+                    {{#footer-logo}}<div class="content-logo" style="height: {{{logo-height}}}{{^logo-height}}100{{/logo-height}}px"><img src="{{{footer-logo}}}"/></div>{{/footer-logo}}
+                    {{/block.logo}}
+                    {{#block.text}}
+                    <div class="col-text">{{{col-text}}}</div>
+                    {{/block.text}}
+                    {{#block.image}}
+                    <div class="col-img" style="height:{{img-height-slider}}{{^img-height-slider}}200{{/img-height-slider}}px;"><div class="reposition-fix">{{{col-img}}}{{^col-img}}<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; background: url('https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg') center center / cover no-repeat" class="outfit-resizable-background">
+                      <img src="https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg" style="display: none; width: 0; height: 0;">
+                      </div>{{/col-img}}</div></div>
+                    {{#col-img-cap}}
+                    <div class="col-img-cap" data-max-line="2"> {{{col-img-cap}}}</div>
+                    {{/col-img-cap}}
+                    {{/block.image}}
+                    {{/collection.column-content}}
+                  </div>
+                </div><!-- column -->
                 {{/block.column}}
                 {{/collection.columns-2columns}}
-
               </div>
 
               <div class="url" data-max-line="2"><a href="{{{FU-url}}}">{{{FU-url}}}</a></div>            
             </div>
+            
           </div>
           <div class="bottom-border"><p>CRICOS No. 00114A | OF_{{#metadata}}{{export_id}}{{/metadata}}{{^metadata}}XXXXX{{/metadata}}</p></div>
 
@@ -369,7 +407,6 @@
     <script>
       var imgWidth = document.getElementsByClassName("col-img").clientWidth;
 
-      console.log(imgWidth);
       // Tracking text changes and firing text restriction functions (mutationObserver)
       const overflowObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
@@ -377,6 +414,7 @@
           maxHeightCheck();
           charLimit();
           hideEmptyTitles();
+          detectProjectKit();
         });
       });
 
@@ -414,10 +452,11 @@
       document.fonts.ready.then(() => {
         maxLineCheck();
         maxHeightCheck();
+        detectProjectKit();
         injectDynamicContent();
         hideEmptyTitles();
       });
-      
+
       setInterval(() => {
         //maxHeightCheck();
       }, 1000);
@@ -430,6 +469,22 @@
       TextFit.fit({
         selector: '.textFit'
       });
+      
+            function detectProjectKit() {
+        const isProjectKit = window.parent.document.querySelector(".preview-frame")
+        const overflowFinder = document.querySelectorAll(".overflow");
+        if ( isProjectKit ) {
+          console.log("I'm in preview mode.");
+          for (i = 0; i < overflowFinder.length; ++i) {
+            overflowFinder[i].classList.remove("overflow");
+            console.log("Got " + i);
+          }
+         
+        }
+        
+      }
+      
+      detectProjectKit();
 
 
     </script>
