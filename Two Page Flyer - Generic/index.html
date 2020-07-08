@@ -12,6 +12,25 @@
     <style>
 
       {{{account.snippets.fonts}}}
+      
+      /* Inputs Order
+      {{#FU-front-page-layout}}{{/FU-front-page-layout}}
+      {{#FU-logo}}{{/FU-logo}}
+      {{FL_main-logo-size-slider--tpfg}}
+      {{#FU-partner-logo}}{{/FU-partner-logo}}
+      {{FL_partner-logo-size-slider--tpfg}}
+      {{#FU-preheading}}{{/FU-preheading}}
+      {{#FU-heading}}{{/FU-heading}}
+      {{#FU-copy}}{{/FU-copy}}
+      {{#FU-background-image}}{{/FU-background-image}}
+      {{#FU-heading-h1h2}}{{/FU-heading-h1h2}}
+      {{#collection.columns-2columns-front}}{{/collection.columns-2columns-front}}
+      {{#FU-logo-toggle-pg2}}{{/FU-logo-toggle-pg2}}
+      {{#FU-heading-pg2}}{{/FU-heading-pg2}}
+      {{#FU-subheading-pg2}}{{/FU-subheading-pg2}}
+      {{#collection.columns-3columns-back}}{{/collection.columns-3columns-back}}
+      {{#FU-url}}{{/FU-url}}
+      */
 
       html {
         font-family: "Circular";
@@ -73,7 +92,7 @@
       }
 
       .show-crop .page-2 .wrapper{
-        height:86% !important;
+        /*height:86% !important;*/
       }
 
       header{
@@ -83,19 +102,22 @@
         margin-bottom: 0.67em;
       }
 
-      header .logo{
-        width:3.8em;
+      .logo { /*height: calc(83pt/100*{{FL_main-logo-size-slider--tpfg}});*/}
+
+      .logo img { 
+        /*height: 100%;*/
+        object-fit: contain;
       }
 
-      header .partner-logo{
-        height: inherit;
-        width:auto;
+      header .logo--main img {
+        width: calc(3.8rem/100*{{FL_main-logo-size-slider--tpfg}}); }
+     
+      header .logo--partner {
         display: flex;
-        max-width: 5.5rem;
       }
 
-      header .partner-logo img{
-        max-height: 111px;
+      header .logo--partner img {
+        width: calc(3rem/100*{{FL_partner-logo-size-slider--tpfg}});
       }
 
       .bottom-border{
@@ -133,7 +155,8 @@
       .body-content {
         height:96%;
       }
-      .body-content.flex{
+      
+      .body-content.logo-show {
         height:83%;
       }
 
@@ -146,7 +169,6 @@
         word-spacing: 7px;
         width: 95%;
         margin-bottom:0.18em;
-        display: flex;
       }
 
       .body-content .heading strong{
@@ -187,7 +209,7 @@
         color: inherit;
       }
 
-      .page-2   .body-content .heading h2{
+      .page-2 .body-content .heading h2 {
         font-family: 'Akzidenz-Grotesk Std Cnd';
         font-size: 18pt;
         font-style: normal;
@@ -211,9 +233,9 @@
       }
 
       .page-2 .column{
-        width: 50%;
+        width: 100%;
         position: relative;
-        margin-right:18px;
+        margin-right: 18px;
       }
 
       .page-2 .column ul{
@@ -221,8 +243,8 @@
         margin-left: 1em;
       }
 
-      .page-2 .column:last-child{
-        margin-right:0px;
+      .page-2 .column:last-child {
+        margin-right: 0px;
       }
 
       .page-2 .column .col-text{
@@ -234,9 +256,11 @@
         margin-bottom: 10px;
       }
 
+      .page-2 .column .col-text ul,
       .page-2 .column .col-text p {
         margin-bottom:0.255rem;
       }
+      
       .page-2 .column .col-text h1{
         font-family: 'Akzidenz Grotesk BE';
         font-size: 12pt !important;
@@ -271,13 +295,7 @@
 
       .page-2 .column .col-img{
         position: relative;
-        top: 0;
-        left:0;
-        right:0;
-        overflow: hidden;
-        bottom: auto;
-        padding: 40% 0;
-        margin-bottom: 10px;
+        width: 100%;
       }
 
 
@@ -292,7 +310,7 @@
         font-style: normal;
         font-size:9pt;
         line-height:14px;
-        margin: 10px 0;
+        margin: 10px 0 0 0;
       }
 
       .column:nth-child(1):nth-last-child(3) .col-img,
@@ -313,40 +331,160 @@
       }
       
       .token-value.token-empty { display: none !important; }
+      
+      
+      /*Front Page Layout*/
+      .page-2.front-two-columns .body-content .heading h1 {
+        margin-bottom: 0;
+      }
+      
+      .page-front:not(.front-{{{FU-front-page-layout}}}{{^FU-front-page-layout}}half-image{{/FU-front-page-layout}}) {
+        display: none;
+      }
+      
+      .spacer{
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+      
+      .spacer .line{
+        width: 100%;
+        height: 1px;
+        border-bottom-color: {{{account.colors.primary-gold}}};
+        border-bottom-style: solid;
+      }
+
+      .pre-heading .text{
+        font-family: 'Akzidenz Grotesk BE Cn';
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 25pt;
+        line-height: 1;
+        width: 95%;
+        margin-bottom: 0.2rem;
+        color: {{{account.colors.black}}};
+      }
+      
+      .pre-heading .text strong{
+        color: {{{account.colors.primary-gold}}};
+      }
+      
+      .pre-heading-line {
+        height: 7px;
+        background: {{{account.colors.primary-gold}}};
+        width: 10%;
+        margin-bottom: 0.2rem;
+      }
+
     </style>
   </head>
   <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
     <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
       <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
     </div><!-- end placeholderMaster -->
-    <div class="page">
+    <div class="page page-front front-half-image">
 
       <div class="bleed">
 
         <div class="container fit">
           <div class="wrapper">
             <header>
-              <div class="logo">
-                <img src="{{FU-logo}}">
+              <div class="logo logo--main">
+                {{#FU-logo}}<img src="{{FU-logo}}">{{/FU-logo}}
               </div>
-              <div class="partner-logo">
-                <img src="{{FU-partner-logo}}" />
+              <div class="logo logo--partner">
+                {{#FU-partner-logo}}<img src="{{FU-partner-logo}}" />{{/FU-partner-logo}}
               </div> 
             </header>
             <div class="body-content">
+              <div class="pre-heading">
+                <div class="pre-heading-line"></div>
+                <div class="text" data-max-line="1">{{{FU-preheading}}}</div>
+              </div>
               <div class="heading" data-max-line="2">{{{FU-heading}}}</div>
               <div class="copy" data-max-height="230">{{{FU-copy}}}</div>
               <div class="url" data-max-line="1">{{{FU-url}}}</div>            
             </div>
           </div>
           <div class="cover-image"><div>{{{FU-background-image}}}</div></div>
-          <div class="bottom-border"><p>CRICOS No. 00114A | OF_{{#metadata}}{{export_id}}{{/metadata}}{{^metadata}}XXXXX{{/metadata}}</p></div>
+          <div class="bottom-border"></div>
 
         </div><!--container fit-->
 
       </div><!--bleed-->
 
     </div><!--page-->
+    
+    
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-2 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page page-front front-two-columns page-2">
+
+      <div class="bleed">
+
+        <div class="container fit">
+          <div class="wrapper" style="height:100%;">
+            <header>
+              <div class="logo logo--main">
+                {{#FU-logo}}<img src="{{{FU-logo}}}">{{/FU-logo}}
+              </div>
+              <div class="logo logo--partner">
+                {{#FU-partner-logo}}<img src="{{FU-partner-logo}}" />{{/FU-partner-logo}}
+              </div>
+            </header>
+            <div class="body-content logo-show" style="display: flex; flex-direction: column;">
+
+              {{#FU-heading-h1h2}}<div class="heading u-heading-patch" data-max-line="3">{{{FU-heading-h1h2}}}</div>{{/FU-heading-h1h2}}
+              <div class="columns-wrapper">
+
+                {{#collection.columns-2columns-front}}
+                {{#block.column}}
+                <div class="column" data-max-height="dynamic">
+                  {{#collection.column-content}}
+                  {{#block.spacer}}
+                  <div class="spacer" style="height: {{{spacer-height}}}px;"><div class="line" style="border-bottom-width: {{{divider-height}}}px; border-bottom-style: {{{divider-style}}};"></div></div>
+                  {{/block.spacer}}
+                  {{#block.logo}}
+                  {{^footer-logo}}<div class="content-logo-empty" style="height: {{{logo-height}}}{{^logo-height}}100{{/logo-height}}px">Add Logo Here</div>{{/footer-logo}}
+                  {{#footer-logo}}<div class="content-logo" style="height: {{{logo-height}}}{{^logo-height}}100{{/logo-height}}px"><img src="{{{footer-logo}}}"/></div>{{/footer-logo}}
+                  {{/block.logo}}
+                  {{#block.text}}
+                  <div class="col-text">{{{col-text}}}</div>
+                  {{/block.text}}
+                  {{#block.image}}
+                  <div class="col-img" style="height:{{img-height-slider}}{{^img-height-slider}}200{{/img-height-slider}}px;">
+                    <div class="reposition-fix">
+                      {{{col-img}}}
+                      {{^col-img}}
+                      <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; background: url('https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg') center center / cover no-repeat" class="outfit-resizable-background">
+                        <img src="https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg" style="display: none; width: 0; height: 0;">
+                      </div>
+                      {{/col-img}}
+                    </div>
+                  </div>
+                  {{#col-img-cap}}
+                  <div class="col-img-cap" data-max-line="2"> {{{col-img-cap}}}</div>
+                  {{/col-img-cap}}
+                  {{/block.image}}
+                  {{/collection.column-content}}
+                </div>
+                {{/block.column}}
+                {{/collection.columns-2columns-front}}
+
+              </div>                     
+            </div>
+          </div>
+          <div class="bottom-border"></div>
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+    
+    
     <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
       <div class="placeholderMaster__item" data-bg="{{ placeholder-image-2 }}"></div>
     </div><!-- end placeholderMaster -->
@@ -356,31 +494,41 @@
 
         <div class="container fit">
           <div class="wrapper" style="height:100%;">
-            <header style="display:{{FU-pg2-logo-toggle}}">
-              <div class="logo" >
-                <img src="{{FU-logo}}">
+            <header class="u-{{FU-logo-toggle-pg2}}">
+              <div class="logo logo--main" >
+                {{#FU-logo}}<img src="{{FU-logo}}">{{/FU-logo}}
               </div>
-              <div class="partner-logo">
-                <img src="{{FU-partner-logo}}" />
+              <div class="logo logo--partner">
+                {{#FU-partner-logo}}<img src="{{FU-partner-logo}}" />{{/FU-partner-logo}}
               </div> 
             </header>
-            <div class="body-content {{FU-pg2-logo-toggle}}" style="display: flex; flex-direction: column;">
+            <div class="body-content logo-{{FU-logo-toggle-pg2}}{{^FU-logo-toggle-pg2}}{{/FU-logo-toggle-pg2}}" style="display: flex; flex-direction: column;">
 
               {{#FU-heading-pg2}}<div class="heading u-heading-patch" data-max-line="2">{{{FU-heading-pg2}}}</div>{{/FU-heading-pg2}}
               {{#FU-subheading-pg2}}<div class="heading u-heading-patch" data-max-line="3">{{{FU-subheading-pg2}}}</div>{{/FU-subheading-pg2}}
               <div class="columns-wrapper">
 
-                {{#collection.columns}}
+                {{#collection.columns-3columns-back}}
                 {{#block.column}}
                 <div class="column" data-max-height="dynamic">
                   {{#collection.column-content}}
+                  {{#block.spacer}}
+                  <div class="spacer" style="height: {{{spacer-height}}}px;"><div class="line" style="border-bottom-width: {{{divider-height}}}px; border-bottom-style: {{{divider-style}}};"></div></div>
+                  {{/block.spacer}}
                   {{#block.text}}
                   <div class="col-text">{{{col-text}}}</div>
                   {{/block.text}}
                   {{#block.image}}
-                  <div class="col-img" style="height:{{img-height}}%;"><div class="reposition-fix">{{{col-img}}}{{^col-img}}<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; background: url('https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg') center center / cover no-repeat" class="outfit-resizable-background">
-          <img src="https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg" style="display: none; width: 0; height: 0;">
-        </div>{{/col-img}}</div></div>
+                  <div class="col-img" style="height:{{img-height-slider}}{{^img-height-slider}}200{{/img-height-slider}}px;">
+                    <div class="reposition-fix">
+                      {{{col-img}}}
+                      {{^col-img}}
+                      <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: 0; padding: 0; background: url('https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg') center center / cover no-repeat" class="outfit-resizable-background">          
+                        <img src="https://files.outfit.io/media_library_items/120278/Template%2520Image%2520Holder%2520%25282%2529.svg" style="display: none; width: 0; height: 0;">
+                      </div>
+                      {{/col-img}}
+                    </div>
+                  </div>
                   {{#col-img-cap}}
                   <div class="col-img-cap" data-max-line="2"> {{{col-img-cap}}}</div>
                   {{/col-img-cap}}
@@ -388,7 +536,7 @@
                   {{/collection.column-content}}
                 </div>
                 {{/block.column}}
-                {{/collection.columns}}
+                {{/collection.columns-3columns-back}}
 
               </div>
 
@@ -402,7 +550,6 @@
       </div><!--bleed-->
 
     </div><!--page-->
-
 
     <script>
       window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
