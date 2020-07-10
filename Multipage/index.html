@@ -19,6 +19,7 @@
     -- {{document-title}}
     -- {{#collection.MP--front-page}}{{/collection.MP--front-page}}
     -- {{#collection.MP--internal-pages}}{{/collection.MP--internal-pages}}
+    -- {{#collection.MP--back-page}}{{/collection.MP--back-page}}
     -- {{show-footer-colour-bar}}
     -- {{heading-font}}
     -- {{paragraph-font}}
@@ -178,13 +179,43 @@
       height: auto;
     }
     
-    .document-title {
+    .header-right {
+      height: 100%;
       width: 50%;
-      flex: 0 0 50%;      
+      flex: 0 0 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+    
+    .document-title {          
+      width: 100%;
       text-align: right;
       font-size: 0.4rem;
       font-weight: bold;
       line-height: 1.2;      
+    }
+    
+    header .document-title { 
+      margin-bottom: 0.25rem;
+    }
+    
+    .page:not(.doc-title-top-right) header .document-title { display: none; }
+    
+    .header-copy-area {
+      flex: 1;
+      width: 100%;
+      position: relative;
+    }
+    
+    .header-copy {
+      text-align: right;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
     }
     
     .content-front.content-text-based .feature-image {
@@ -354,7 +385,9 @@
     .content,
     .content p,
     .content ul,
-    .content ol {
+    .content ol,
+    .header-copy, 
+    .header-copy p {
       font-size: calc(0.285rem * {{{paragraph-font-slider}}}{{^paragraph-font-slider}}1{{/paragraph-font-slider}});
       font-weight: normal;
       line-height: 1.2;
@@ -600,12 +633,20 @@
       padding: 0.2rem;
     }
     
-    .callout.outline{
+    .callout.outline[data-color="yellow"]{
       border: 0.03rem solid var(--yellow);
     }
     
-    .callout.shaded{
+    .callout.shaded[data-color="yellow"]{
       background: var(--light-yellow);
+    }
+    
+    .callout.outline[data-color="grey"]{
+      border: 0.03rem solid var(--light-grey);
+    }
+    
+    .callout.shaded[data-color="grey"]{
+      background: var(--light-grey);
     }
     
     /*header-color-{{header-color}} body-color-{{body-color}} outline-{{outlines}}
@@ -712,6 +753,19 @@
       position: relative;
     }
     
+    footer .document-title {
+      text-align: left;
+    }
+    
+    .page-front footer {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 0.25rem 0 0.4rem;
+    }
+    
+    .page:not(.doc-title-bottom-left) footer .document-title { display: none; }
+    
     .paging, 
     .paging p {
       font-size: 0.23rem;
@@ -775,14 +829,54 @@
       background: var(--yellow);
     }
     
+    .heading-item.heading-text[data-heading-underline="true"] {
+      border-bottom: 0.1rem solid var(--yellow);
+    }
+    
     .heading-item:nth-child(2) {
       margin-left: 0.2rem;
+    }
+    
+    /*Version Table*/
+    .version-table {
+      width: 60%;
+      margin-top: 0.25rem;
+    }
+    
+    .version-table p {
+      font-size: 0.15rem;
+      line-height: 1em;      
     }
     
     /*Absolute image front page*/
     .absolute-image-front-page .container {
       padding-bottom: 3mm;
       grid-template-rows: 3rem 1fr 0%;
+    }
+    
+    .versioning {
+      position: absolute;
+      top: 0;
+      right: calc(3mm + 0.98rem);
+      bottom: 0.8rem;
+      left: calc(3mm + 0.98rem);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+    
+    .versioning .document-title {
+      text-align: left;
+    }
+    
+    .page:not(.doc-title-bottom-left) .versioning .document-title {
+      display: none;
+    }
+    
+    .versioning.color-white,
+    .versioning.color-white .document-title {
+      color: var(--white);
     }
     
     @media (max-width: 225mm) {
@@ -825,19 +919,103 @@
     .page-heading .heading-table h4{	font-size: 0.5rem; font-family: 'Akzidenz Grotesk BE'; margin-bottom: 0.15em;}
     
 	.page-heading .heading-table p{	font-size: 0.285rem;	margin-bottom: 0.15em;}
+    
+    /*Back Page*/
+    .back-page .container{
+      padding: calc(3mm + 1.6rem) calc(3mm + 0.98rem) calc(3mm + 1.2rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      grid-template-rows: unset;
+      background-color: var(--yellow);
+    }
+
+    .main-content {
+      max-height: 15rem;
+    }
+
+    .back-page h1 {
+      text-transform: uppercase;
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.7rem;
+      border-bottom: 0.06rem solid black;
+    }
+
+    .back-page h2 {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    
+    .back-page p {
+      font-size: 0.3rem;
+      margin-bottom: 0.3rem;
+    }
+    
+
+    .disclaimer-copy {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .back-page .disclaimer-copy p {
+      font-size: 0.15rem;
+      line-height: 1;
+      margin-bottom: 0;
+    }
+
+    .back-page .disclaimer-copy p:first-child {
+      max-width: 90%;
+    }
+
+    .back-page .logos {
+      margin-bottom: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .back-page .footer .logos .primary, .back-page .footer .logos .partner img {
+      max-width: 3.34rem;
+      max-height: 3rem;
+    }
+
+    .partner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .partner-details{
+       margin-top: 0.5rem;
+    }
+    
+    .partner-details p {
+      text-align: right;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+    
+    .social-icons{
+      display: flex;
+      margin-top: 0.5rem;
+    }
+    
+    .social-icon img{
+      width: 0.6rem;
+      margin-right: 0.2rem;
+    }
   </style>
 </head>
 
 <body style="background: white" data-crop="{{show-crop}}" data-ending="{{show-footer-colour-bar}}" data-paging="{{page-numbers}}" data-reduce-export-font-size-by-percent="0" data-reduce-firefox-font-size-by-percent="0" data-prevent-export-overflow="false">            
   <div class="u-hide">
     <div id="logo">{{#logo}}<img src="{{{logo}}}" />{{/logo}}</div>
-    <div id="document-title">
-      {{{document-title}}}
-    </div>
+    <div id="document-title">{{{document-title}}}</div>
   </div>
   {{#collection.MP--front-page}}
   {{#block.text-based-front-page}}
-  <div class="page page-front text-based-front-page">
+  <div class="page page-front text-based-front-page doc-title-{{document-title-position}}{{^document-title-position}}top-right{{/document-title-position}}">
 
     <div class="bleed">
 
@@ -864,7 +1042,20 @@
             </div>
           </div>                    
         </main>
-        <footer></footer>
+        <footer>
+          <div class="document-title" data-asset="document-title" data-max-line="2"></div>
+          <div class="table table-color-light-grey table-flexible version-table {{^spreadsheet.version-table}}u-hide{{/spreadsheet.version-table}}" data-header="[&quot;bolded-text&quot;]" {{#spreadsheet.version-table-columns-width}}data-width-1="{{column-1}}" data-width-2="{{column-2}}" data-width-3="{{column-3}}" data-width-4="{{column-4}}" data-width-5="{{column-5}}"{{/spreadsheet.version-table-columns-width}}>
+            {{#spreadsheet.version-table}}
+            <div class="row">
+              {{#column-1}}<div class="table-column"><p>{{{column-1}}}</p></div>{{/column-1}}
+              {{#column-2}}<div class="table-column"><p>{{{column-2}}}</p></div>{{/column-2}}
+              {{#column-3}}<div class="table-column"><p>{{{column-3}}}</p></div>{{/column-3}}
+              {{#column-4}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-4}}
+              {{#column-5}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-5}}
+            </div>
+            {{/spreadsheet.version-table}}
+          </div>
+        </footer>
         <div class="ending"></div>
       </div>
       <!--container fit-->
@@ -876,14 +1067,21 @@
   <!--page-->
   {{/block.text-based-front-page}}
   {{#block.hero-image-front-page}}
-  <div class="page page-front hero-image-front-page">
+  <div class="page page-front hero-image-front-page doc-title-{{document-title-position}}{{^document-title-position}}top-right{{/document-title-position}}">
 
     <div class="bleed">
 
       <div class="container fit">
         <header>
           <div class="logo" data-asset="logo"></div>
-          <div class="document-title" data-asset="document-title" data-max-line="2"></div>
+          <div class="header-right">
+          	<div class="document-title" data-asset="document-title" data-max-line="2"></div>
+            <div class="header-copy-area">
+              <div class="header-copy">
+                <div data-max-height="dynamic"><p>{{{header-copy}}}</p></div>
+              </div>
+            </div>
+          </div>
         </header>
         <main>                    
           <div class="content content-front content-hero-image alt-{{heading-alternate-colour}}{{^heading-alternate-colour}}yellow{{/heading-alternate-colour}}" style="padding: 1rem 0 0;">
@@ -900,7 +1098,20 @@
             </div>
           </div>          
         </main>
-        <footer></footer>
+        <footer>
+          <div class="document-title" data-asset="document-title" data-max-line="2"></div>
+          <div class="table table-color-light-yellow table-flexible version-table {{^spreadsheet.version-table}}u-hide{{/spreadsheet.version-table}}" data-header="[&quot;bolded-text&quot;]" {{#spreadsheet.version-table-columns-width}}data-width-1="{{column-1}}" data-width-2="{{column-2}}" data-width-3="{{column-3}}" data-width-4="{{column-4}}" data-width-5="{{column-5}}"{{/spreadsheet.version-table-columns-width}}>
+            {{#spreadsheet.version-table}}
+            <div class="row">
+              {{#column-1}}<div class="table-column"><p>{{{column-1}}}</p></div>{{/column-1}}
+              {{#column-2}}<div class="table-column"><p>{{{column-2}}}</p></div>{{/column-2}}
+              {{#column-3}}<div class="table-column"><p>{{{column-3}}}</p></div>{{/column-3}}
+              {{#column-4}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-4}}
+              {{#column-5}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-5}}
+            </div>
+            {{/spreadsheet.version-table}}
+          </div>
+        </footer>
         <div class="ending"></div>
       </div>
       <!--container fit-->
@@ -912,14 +1123,21 @@
   <!--page-->
   {{/block.hero-image-front-page}}
   {{#block.absolute-image-front-page}}
-  <div class="page page-front absolute-image-front-page">
+  <div class="page page-front absolute-image-front-page doc-title-{{document-title-position}}{{^document-title-position}}top-right{{/document-title-position}}">
 
     <div class="bleed">
 
       <div class="container fit" style="grid-template-rows: 3rem 1fr {{{image-height}}}{{^image-height}}50{{/image-height}}%;">
         <header>
           <div class="logo" data-asset="logo"></div>
-          <div class="document-title" data-asset="document-title" data-max-line="2"></div>
+          <div class="header-right">
+          	<div class="document-title" data-asset="document-title" data-max-line="2"></div>
+            <div class="header-copy-area">
+              <div class="header-copy">
+                <div data-max-height="dynamic"><p>{{{header-copy}}}</p></div>
+              </div>
+            </div>
+          </div>
         </header>
         <main>                    
           <div class="content content-front content-absolute-image alt-{{heading-alternate-colour}}{{^heading-alternate-colour}}yellow{{/heading-alternate-colour}}" style="padding: 1rem 0;">
@@ -936,6 +1154,20 @@
         </main>
         <div class="absolute-featured-image">
           <div class="reposition-fix">{{{feature-image}}}</div>
+          <div class="versioning color-{{feature-image-text-colour}}{{^feature-image-text-colour}}white{{/feature-image-text-colour}}">
+          	<div class="document-title" data-asset="document-title" data-max-line="2"></div>
+            <div class="table table-color-light-yellow table-flexible version-table {{^spreadsheet.version-table}}u-hide{{/spreadsheet.version-table}}" data-header="[&quot;bolded-text&quot;]" {{#spreadsheet.version-table-columns-width}}data-width-1="{{column-1}}" data-width-2="{{column-2}}" data-width-3="{{column-3}}" data-width-4="{{column-4}}" data-width-5="{{column-5}}"{{/spreadsheet.version-table-columns-width}}>
+              {{#spreadsheet.version-table}}
+              <div class="row">
+                {{#column-1}}<div class="table-column"><p>{{{column-1}}}</p></div>{{/column-1}}
+                {{#column-2}}<div class="table-column"><p>{{{column-2}}}</p></div>{{/column-2}}
+                {{#column-3}}<div class="table-column"><p>{{{column-3}}}</p></div>{{/column-3}}
+                {{#column-4}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-4}}
+                {{#column-5}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-5}}
+              </div>
+              {{/spreadsheet.version-table}}
+            </div>
+          </div>
         </div>
         <div class="ending"></div>        
       </div>
@@ -967,7 +1199,7 @@
             <div class="page-heading" data-max-height="css">
            		{{#collection.customisable-heading}}
               		{{#block.heading-text}}
-                      <div class="heading-item heading-text" style="flex: {{{flexible-item-size}}}">
+                      <div class="heading-item heading-text" style="flex: {{{flexible-item-size}}}" data-heading-underline='{{{heading-underline}}}'>
                         <div style="font-size: calc(1rem * ({{heading-size}}{{^heading-size}}100{{/heading-size}} / 100));">
                           {{{heading}}}
                         </div>
@@ -1013,18 +1245,20 @@
                     </div>
                     {{/block.text}}
                     {{#block.callout}}
-                    	<div class="callout {{callout-style}}{{^callout-style}}outline{{/callout-style}}">
+                    	<div class="callout {{callout-style}}{{^callout-style}}outline{{/callout-style}}" data-color="{{callout-color}}{{^callout-color}}yellow{{/callout-color}}">
                           {{{callout-text}}}
                     	</div>
                     {{/block.callout}}
                     {{#block.table}}
-                    <div class="table table-color-{{table-colour}}{{^table-colour}}yellow{{/table-colour}}" data-header="{{table-header}}">
+                    <div class="table table-color-{{table-colour}}{{^table-colour}}yellow{{/table-colour}} table-flexible" data-header="{{table-header}}" {{#spreadsheet.table-columns-width}}data-width-1="{{column-1}}" data-width-2="{{column-2}}" data-width-3="{{column-3}}" data-width-4="{{column-4}}" data-width-5="{{column-5}}" data-width-6="{{column-6}}"{{/spreadsheet.table-columns-width}}>
                       {{#spreadsheet.table}}
                       <div class="row">
                         {{#column-1}}<div class="table-column"><p>{{{column-1}}}</p></div>{{/column-1}}
                         {{#column-2}}<div class="table-column"><p>{{{column-2}}}</p></div>{{/column-2}}
                         {{#column-3}}<div class="table-column"><p>{{{column-3}}}</p></div>{{/column-3}}
                         {{#column-4}}<div class="table-column"><p>{{{column-4}}}</p></div>{{/column-4}}
+                        {{#column-5}}<div class="table-column"><p>{{{column-5}}}</p></div>{{/column-5}}
+                        {{#column-6}}<div class="table-column"><p>{{{column-6}}}</p></div>{{/column-6}}
                       </div>
                       {{/spreadsheet.table}}
                     </div>
@@ -1194,6 +1428,48 @@
   {{/block.full-image-page}}                
 
   {{/collection.MP--internal-pages}}
+  {{#collection.MP--back-page}}
+  	{{#block.back-page}}
+  	<div class="page back-page">
+      <div class="bleed">
+        <div class="container fit">
+          <div class="main-content" data-max-height="css">
+          	{{{content}}}
+            <div class="social-icons">
+              {{#collection.social-icons}}
+                {{#block.facebook}}
+                  <div class="social-icon"><a href="{{{url}}}{{^url}}https://www.facebook.com/FlindersUniversity{{/url}}"><img src="https://files.outfit.io/media_library_items/202735/Facebook%2520Icon.svg"/></a></div>
+                {{/block.facebook}}
+                {{#block.instagram}}
+                  <div class="social-icon"><a href="{{{url}}}{{^url}}https://www.instagram.com/flindersuniversity{{/url}}"><img src="https://files.outfit.io/media_library_items/202734/Instagram%2520Icon.svg"/></a></div>
+                {{/block.instagram}}
+                {{#block.twitter}}
+                  <div class="social-icon"><a href="{{{url}}}{{^url}}https://twitter.com/Flinders{{/url}}"><img src="https://files.outfit.io/media_library_items/202736/Twitter%2520Icon.svg"/></a></div>
+                {{/block.twitter}}
+                {{#block.custom}}
+                  {{#icon}}<div class="social-icon"><a href="{{{url}}}"><img src="{{{icon}}}"/></a></div>{{/icon}}
+                {{/block.custom}}
+              {{/collection.social-icons}}
+            </div>
+          </div>
+          <div class="footer">
+            <div class="logos">
+              <img class="primary" src="{{{account.logos.primary}}}"/>
+              <div class="partner">
+              	{{#partner-logo}}<img src="{{{partner-logo}}}"/>{{/partner-logo}}
+                {{#partner-details}}<div class="partner-details"><p data-max-line="4">{{{partner-details}}}</p></div>{{/partner-details}}
+              </div>
+            </div>
+            <div class="disclaimer-copy">
+              <p data-max-line="3">{{disclaimer-copy}}</p>
+              <p>CRICOS No. {{{account.snippets.cricos}}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  	{{/block.back-page}}
+  {{/collection.MP--back-page}}
   
   <script>
     window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
@@ -1207,6 +1483,7 @@
   <script src="js/max-height-check.js"></script>
   <script src="js/textfit.js"></script>
   <script src="js/utils.js"></script>
+  <script src="js/fontfaceobserver.js"></script>
   <script>
     let dataEls = document.querySelectorAll(".table-column");
     dataEls.forEach(el => {
@@ -1216,10 +1493,37 @@
         el.innerText = "";
       }
     });
+    
+    // Check if version table exist
+    const container = document.querySelector('.page-front .container');
+    const footer = document.querySelector('.page-front footer');
+    const versionTable = document.querySelector('.version-table');
+    
+    if (container && footer && versionTable) {
+      const versionTableHeight = versionTable.offsetHeight;
+      if (versionTableHeight) {
+        container.style.gridTemplateRows = `3rem 1fr calc(${versionTableHeight}px + 1.39rem)`;
+      }
+    }
+    
+    const tablesFlexible = document.querySelectorAll('.table-flexible');
+    tablesFlexible.forEach(tb => {
+      const tbRows = tb.querySelectorAll('.row');
+      tbRows.forEach(row => {
+        const tbColumns = row.querySelectorAll('.table-column');
+        tbColumns.forEach((col, index) => {
+          const width = tb.dataset[`width-${index + 1}`];
+          if (width) {
+            col.style.width = `${width}%`;
+            col.style.flex = `0 0 ${width}%`;
+          }
+        });
+      });
+    });
   </script>
   <script>
 
-    console.clear();
+    //console.clear();
 
     // Tracking text changes and firing text restriction functions (mutationObserver)
     const overflowObserver = new MutationObserver(function (mutations) {
@@ -1259,15 +1563,29 @@
         });
       });
     }
-
+    
     // Calling text size restriction functions once the fonts are loaded
-    document.fonts.ready.then(() => {
-      dynamicDocTitle();
-      maxLineCheck();
-      maxHeightCheck();
-      injectDynamicContent();      
-    });
+    // All external font-families need to be added to 'fonts' array
+    document.addEventListener('DOMContentLoaded', function(event) {
+      const fonts = ['Akzidenz Grotesk BE', 'Akzidenz Grotesk BE Cn'];
+      const fontObservers = [];
 
+      fonts.forEach(font => {
+        const obs = new FontFaceObserver(font);
+        fontObservers.push(obs.load())
+      });
+
+      Promise.all(fontObservers).then(() => {
+        dynamicDocTitle();
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+
+        document.dispatchEvent(new Event('printready'));
+      });
+    });    
+    
     checkCrop();
     checkExport();
     dynamicToc();
